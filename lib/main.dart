@@ -1,8 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_full_hex_values_for_flutter_colors
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grabcab/screens/signup_screen.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:lottie/lottie.dart';
 
 void main(){
   runApp(const MyApp());
@@ -19,7 +22,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Text("heo")
+      debugShowCheckedModeBanner: false,
+      home: AnimatedSplashScreen(
+        splashTransition: SplashTransition.scaleTransition,
+        duration: 2680,
+        splashIconSize: 250,
+        splash: Lottie.asset("assets/splash_ani.json"), 
+        nextScreen: SignUp()
+      )
     );
   }
 }
