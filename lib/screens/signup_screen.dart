@@ -14,6 +14,9 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
+  bool visible = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -61,7 +64,6 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   children: [
                     Container(
-                      // height: 70,
                       decoration: BoxDecoration(
                         color:Colors.purple.shade400,
                         borderRadius: BorderRadius.all(Radius.circular(50))
@@ -69,9 +71,11 @@ class _SignUpState extends State<SignUp> {
                       child: TextFormField(
                         style: TextStyle(
                           color: Colors.white,
+                          fontSize: 18,
                         ),
                         cursorColor: Colors.white,
                         cursorRadius: Radius.circular(10),
+                        cursorHeight: 25,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.person,color: Colors.white,size: 30,),
                           hintText: "Username",
@@ -79,16 +83,125 @@ class _SignUpState extends State<SignUp> {
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent))
+                            borderSide: BorderSide(color: Colors.transparent)),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
                         ),
+                      ).px(4),
+                    ),
+                    15.heightBox,
+                    Container(
+                      decoration: BoxDecoration(
+                        color:Colors.purple.shade400,
+                        borderRadius: BorderRadius.all(Radius.circular(50))
+                      ),
+                      child: TextFormField(
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                        cursorColor: Colors.white,
+                        cursorRadius: Radius.circular(10),
+                        cursorHeight: 25,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.mail,color: Colors.white,size: 28,),
+                          hintText: "Email address",
+                          hintStyle: TextStyle(color: Colors.white),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                        ),
+                      ).px(4),
+                    ),
+                    15.heightBox,
+                    Container(
+                      decoration: BoxDecoration(
+                        color:Colors.purple.shade400,
+                        borderRadius: BorderRadius.all(Radius.circular(50))
+                      ),
+                      child: TextFormField(
+                        obscureText:visible?false:true,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                        cursorColor: Colors.white,
+                        cursorRadius: Radius.circular(10),
+                        cursorHeight: 25,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.lock,color: Colors.white,size: 30,),
+                          suffixIcon: visible? Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: IconButton(
+                              onPressed: (){
+                                setState(() {
+                                  visible = false;
+                                });
+                            }, icon: Icon(Icons.visibility,color:Colors.white,)),
+                          ) : Padding(padding:EdgeInsets.only(right: 10),child: IconButton(
+                            onPressed: (){
+                              setState(() {
+                                visible = true;
+                              });
+                            },
+                            icon: Icon(Icons.visibility_off,color:Colors.white,))),
+                          hintText: "Password",
+                          hintStyle: TextStyle(color: Colors.white),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                        ),
+                      ).px(4),
+                    ),
+                    30.heightBox,
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20)),
+                        backgroundColor: MaterialStateProperty.all(Colors.purple.shade600),
+                        shape:MaterialStateProperty.all(StadiumBorder())
+                      ),
+                      onPressed: (){
                         
-                      ).px(2),
-                    )
+                      }, 
+                      child: "Sign Up".text.make()
+                    ).wh(size.width*.35, size.height*.059),
                   ],
                 )
-              )
+              ),
             ],
           ),
+        ),
+      ),
+      bottomSheet: Padding(
+        padding: EdgeInsets.only(bottom: 7),
+        child: SizedBox(
+          height: size.height*.045,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              "Already have an account?".text.xl2.make(),
+              TextButton(
+                style: ButtonStyle(
+                  splashFactory:NoSplash.splashFactory,
+                ),
+                onPressed: (){
+                  
+                }, 
+                child: "Sign in".text.purple700.xl2.make())
+            ],
+          )
         ),
       ),
     );
