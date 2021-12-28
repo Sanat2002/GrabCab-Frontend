@@ -61,6 +61,7 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   children: [
                     Container(
+                      // height: 70,
                       decoration: BoxDecoration(
                         color:Colors.purple.shade400,
                         borderRadius: BorderRadius.all(Radius.circular(50))
@@ -69,12 +70,11 @@ class _SignUpState extends State<SignUp> {
                         style: TextStyle(
                           color: Colors.white,
                         ),
-                        cursorColor: Colors.black,
+                        cursorColor: Colors.white,
                         cursorRadius: Radius.circular(10),
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person,color: Colors.white,),
-                          hintText: "Jhonny Depp",
-                          label: "Username".text.white.make(),
+                          prefixIcon: Icon(Icons.person,color: Colors.white,size: 30,),
+                          hintText: "Username",
                           hintStyle: TextStyle(color: Colors.white),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent)),
@@ -82,7 +82,7 @@ class _SignUpState extends State<SignUp> {
                             borderSide: BorderSide(color: Colors.transparent))
                         ),
                         
-                      ),
+                      ).px(2),
                     )
                   ],
                 )
