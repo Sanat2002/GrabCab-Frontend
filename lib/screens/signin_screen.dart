@@ -43,13 +43,14 @@ class _SignInState extends State<SignIn> {
                 right:0,
                 child: Column(
                   children: [
-                    "To get best cars at best values,".text.textStyle(TextStyle(fontSize: 25,fontFamily: GoogleFonts.arsenal().fontFamily)).make(),
-                    "Sign In!!!".text.purple600.semiBold.textStyle(TextStyle(fontSize: 30,fontFamily: GoogleFonts.arsenal().fontFamily)).make(),
+                    "To get best cars at best values,".text.textStyle(TextStyle(fontSize: 30,fontFamily: GoogleFonts.arsenal().fontFamily)).make(),
+                    16.heightBox,
+                    "Sign In!!!".text.purple600.semiBold.textStyle(TextStyle(fontSize: 33,fontFamily: GoogleFonts.arsenal().fontFamily)).make(),
                   ],
                 )
               ),
               Positioned(
-                top: 160,
+                top: 180,
                 left: 40,
                 right: 40,
                 child: Column(
@@ -93,7 +94,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ).px(5),
                     ),
-                    30.heightBox,
+                    25.heightBox,
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.purple.shade200,
@@ -152,7 +153,18 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                       ).px(5),
-                    )
+                    ),
+                    50.heightBox,
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.purple.shade400),
+                        shape: MaterialStateProperty.all(StadiumBorder())
+                      ),
+                      onPressed: (){
+
+                      }, 
+                      child: "Sign In".text.xl2.make()
+                    ).wh(size.width*.3, size.height*.05)
                   ],
                 )),
               Positioned(

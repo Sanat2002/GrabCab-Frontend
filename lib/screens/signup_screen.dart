@@ -172,7 +172,7 @@ class _SignUpState extends State<SignUp> {
                     ElevatedButton(
                       style: ButtonStyle(
                         textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20)),
-                        backgroundColor: MaterialStateProperty.all(Colors.purple.shade600),
+                        backgroundColor: MaterialStateProperty.all(Colors.purple.shade500),
                         shape:MaterialStateProperty.all(StadiumBorder())
                       ),
                       onPressed: (){
