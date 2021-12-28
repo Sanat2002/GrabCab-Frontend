@@ -16,7 +16,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 
-  bool visible = false;
+  bool _visible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color:Colors.purple.shade400,
+                        color:Colors.purple.shade300,
                         borderRadius: BorderRadius.all(Radius.circular(50))
                       ),
                       child: TextFormField(
@@ -95,7 +95,7 @@ class _SignUpState extends State<SignUp> {
                     15.heightBox,
                     Container(
                       decoration: BoxDecoration(
-                        color:Colors.purple.shade400,
+                        color:Colors.purple.shade300,
                         borderRadius: BorderRadius.all(Radius.circular(50))
                       ),
                       child: TextFormField(
@@ -124,11 +124,11 @@ class _SignUpState extends State<SignUp> {
                     15.heightBox,
                     Container(
                       decoration: BoxDecoration(
-                        color:Colors.purple.shade400,
+                        color:Colors.purple.shade300,
                         borderRadius: BorderRadius.all(Radius.circular(50))
                       ),
                       child: TextFormField(
-                        obscureText:visible?false:true,
+                        obscureText:_visible?false:true,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -138,18 +138,20 @@ class _SignUpState extends State<SignUp> {
                         cursorHeight: 25,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock,color: Colors.white,size: 30,),
-                          suffixIcon: visible? Padding(
+                          suffixIcon: _visible? Padding(
                             padding: EdgeInsets.only(right: 10),
                             child: IconButton(
+                              splashRadius: 1,
                               onPressed: (){
                                 setState(() {
-                                  visible = false;
+                                  _visible = false;
                                 });
                             }, icon: Icon(Icons.visibility,color:Colors.white,)),
                           ) : Padding(padding:EdgeInsets.only(right: 10),child: IconButton(
+                            splashRadius: 1,
                             onPressed: (){
                               setState(() {
-                                visible = true;
+                                _visible = true;
                               });
                             },
                             icon: Icon(Icons.visibility_off,color:Colors.white,))),
