@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grabcab/screens/painters/signup_painter.dart';
+import 'package:grabcab/painters/signup_painter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SignUp extends StatefulWidget {
@@ -12,17 +13,27 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-      // backgroundColor: Colors.brown,
       body: Stack(
         children: [
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            child: CustomPaint(
-              painter: SignUpPainter(),
-            ))
+            child: SizedBox(
+              height: size.height,
+              width: size.width,
+              child: CustomPaint(
+                painter: SignUpPainter(),
+              ),
+            )),
+          Positioned(
+            top: 50,
+            left: 0,
+            right: 0,
+            child: Lottie.asset("assets/signup_ani.json",height: 250))
         ],
       ),
     );
