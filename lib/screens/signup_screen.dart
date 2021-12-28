@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:grabcab/painters/signup_painter.dart';
+import 'package:grabcab/screens/signin_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -173,10 +174,10 @@ class _SignUpState extends State<SignUp> {
                         shape:MaterialStateProperty.all(StadiumBorder())
                       ),
                       onPressed: (){
-                        
+
                       }, 
                       child: "Sign Up".text.make()
-                    ).wh(size.width*.35, size.height*.059),
+                    ).wh(size.width*.35, size.height*.055),
                   ],
                 )
               ),
@@ -197,7 +198,7 @@ class _SignUpState extends State<SignUp> {
                   splashFactory:NoSplash.splashFactory,
                 ),
                 onPressed: (){
-                  
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SignIn()));
                 }, 
                 child: "Sign in".text.purple700.xl2.make())
             ],
