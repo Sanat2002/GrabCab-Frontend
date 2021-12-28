@@ -34,10 +34,21 @@ class _SignInState extends State<SignIn> {
                 )
               ),
               Positioned(
-                top: 30,
+                top: 37,
                 left:0,
                 right:0,
-                child: "Sign In to get best car at best value!!!".text.make())
+                child: Column(
+                  children: [
+                    "To get best cars at best values,".text.textStyle(TextStyle(fontSize: 25,fontFamily: GoogleFonts.arsenal().fontFamily)).make(),
+                    "Sign In!!!".text.purple600.semiBold.textStyle(TextStyle(fontSize: 30,fontFamily: GoogleFonts.arsenal().fontFamily)).make(),
+                  ],
+                )
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 20,
+                child: Lottie.asset("assets/signin_ani.json"))
             ],
           ),
         ),
