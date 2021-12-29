@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:grabcab/painters/signup_painter.dart';
 import 'package:grabcab/screens/signin_screen.dart';
@@ -17,6 +18,10 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
 
   bool _visible = false;
+
+  final _namecontroller = TextEditingController();
+  final _emailcontroller = TextEditingController();
+  final _passcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +75,13 @@ class _SignUpState extends State<SignUp> {
                         borderRadius: BorderRadius.all(Radius.circular(50))
                       ),
                       child: TextFormField(
+                        controller: _namecontroller,
+                        validator:(value){
+                          if(value!.isEmpty){
+                            return "Enter username";
+                          }
+                          return null;
+                        },
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -99,6 +111,13 @@ class _SignUpState extends State<SignUp> {
                         borderRadius: BorderRadius.all(Radius.circular(50))
                       ),
                       child: TextFormField(
+                        controller:_emailcontroller,
+                        validator: (value){
+                          if(!EmailValidator.validate(value!)){
+                            return "Enter correct email!!!";
+                          }
+                        },
+                        keyboardType:TextInputType.emailAddress,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
