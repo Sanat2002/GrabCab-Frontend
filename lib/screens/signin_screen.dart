@@ -88,7 +88,7 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     children: [
                       Container(
-                        height: size.height*.08,
+                        height: size.height*.07,
                         decoration: BoxDecoration(
                           color: Colors.purple.shade200,
                           borderRadius: BorderRadius.circular(40)
@@ -134,11 +134,11 @@ class _SignInState extends State<SignIn> {
                               )
                             ),
                           ),
-                        ).px(5),
+                        ).px(5).py(3),
                       ),
                       25.heightBox,
                       Container(
-                        height: size.height*.08,
+                        height: size.height*.07,
                         decoration: BoxDecoration(
                           color: Colors.purple.shade200,
                           borderRadius: BorderRadius.circular(40)
@@ -159,7 +159,7 @@ class _SignInState extends State<SignIn> {
                             color: Colors.white
                           ),
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.mail_rounded,color:Colors.white,size:28),
+                            prefixIcon: Icon(Icons.lock,color:Colors.white,size:28),
                             suffixIcon: _visible? Padding(
                               padding: EdgeInsets.only(right:4),
                               child: IconButton(
@@ -203,7 +203,7 @@ class _SignInState extends State<SignIn> {
                               )
                             ),
                           ),
-                        ).px(5),
+                        ).px(5).py(3),
                       ),
                       50.heightBox,
                       ElevatedButton(

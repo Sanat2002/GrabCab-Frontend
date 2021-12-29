@@ -214,7 +214,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                         onPressed: (){
                           if(_formkey.currentState!.validate()){
-
+    
                           }
                         }, 
                         child: "Sign Up".text.make()
@@ -240,7 +240,19 @@ class _SignUpState extends State<SignUp> {
                   splashFactory:NoSplash.splashFactory,
                 ),
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SignIn()));
+                  Navigator.push(context, PageRouteBuilder(
+                    transitionDuration: Duration(milliseconds: 400),
+                    transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secAnimation,Widget child){
+                      // animation = CurvedAnimation(parent: animation, curve: Curves.elasticInOut);
+                      return ScaleTransition(
+                        alignment: Alignment.center,
+                        scale: animation,
+                        child: child,
+                      );
+                    },
+                    pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secAnimation){
+                      return SignIn();
+                    }));
                 }, 
                 child: "Sign in".text.purple700.xl2.make())
             ],
