@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grabcab/painters/signin_painter.dart';
+import 'package:grabcab/screens/home_screen.dart';
+import 'package:grabcab/services/authentication.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -18,6 +21,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   bool _visible = false;
+  final _auth = FirebaseAuth.instance;
 
   final _formkey = GlobalKey<FormState>();
   late Timer timer;
@@ -190,9 +194,21 @@ class _SignInState extends State<SignIn> {
                           backgroundColor: MaterialStateProperty.all(Colors.purple.shade400),
                           shape: MaterialStateProperty.all(StadiumBorder())
                         ),
-                        onPressed: (){
+                        onPressed: () async{
                           if(_formkey.currentState!.validate()){
-                            
+                            var res = await AuthenticationService().signinemail(_emailcontroller.text, _passcontroller.text);
+
+                            if(res == "Success"){
+                              if(_auth.currentUser!.emailVerified){
+                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()), (route) => false);
+                              }
+                              else{
+                                await AuthenticationService().signout();
+                                res = "Email not verified!!!";
+                              }
+                            }
+
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: res.text.red400.make()));
                           }
                         }, 
                         child: "Sign In".text.xl2.make()

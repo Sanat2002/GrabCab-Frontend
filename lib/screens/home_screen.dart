@@ -16,6 +16,7 @@ class _HomeState extends State<Home> {
       body:ElevatedButton(
         onPressed: () async{
           await AuthenticationService().signout();
+          
         },
         child: "Signout".text.make(),)
     );
