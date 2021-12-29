@@ -21,6 +21,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   bool _visible = false;
+  bool _isloading = false;
   final _auth = FirebaseAuth.instance;
 
   final _formkey = GlobalKey<FormState>();
@@ -34,7 +35,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
+    return _isloading? Scaffold(body: Center(child: CircularProgressIndicator(color: Colors.purple.shade300,)),) : Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
           height: size.height,
@@ -196,6 +197,9 @@ class _SignInState extends State<SignIn> {
                         ),
                         onPressed: () async{
                           if(_formkey.currentState!.validate()){
+                            setState(() {
+                              _isloading = true;
+                            });
                             var res = await AuthenticationService().signinemail(_emailcontroller.text, _passcontroller.text);
 
                             if(res == "Success"){
@@ -207,7 +211,9 @@ class _SignInState extends State<SignIn> {
                                 res = "Email not verified!!!";
                               }
                             }
-
+                            setState(() {
+                              _isloading = false;
+                            });
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: res.text.red400.make()));
                           }
                         }, 

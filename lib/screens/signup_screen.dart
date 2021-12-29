@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return _isloading? Scaffold(body: Center(child: CircularProgressIndicator(color:Colors.purple.shade500))): Scaffold(
+    return _isloading? Scaffold(body: Center(child: CircularProgressIndicator(color:Colors.purple.shade400))): Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
           height: size.height,
