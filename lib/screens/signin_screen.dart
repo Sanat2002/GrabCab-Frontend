@@ -39,7 +39,7 @@ class _SignInState extends State<SignIn> {
               Divider(color: Colors.black,),
               Lottie.asset("assets/verifymail_ani.json",height:200),
               "Verification link has been sent to,".text.xl.make(),
-              "sanatthakur2002@gmail.com".text.blue500.textStyle(TextStyle(fontSize:20)).make()
+              _emailcontroller.text.text.blue500.textStyle(TextStyle(fontSize:20)).make()
             ],
           ),
         ),
@@ -98,7 +98,7 @@ class _SignInState extends State<SignIn> {
                           controller: _emailcontroller,
                           validator: (value){
                             if(!EmailValidator.validate(value!)){
-                              return "Enter correct email!!!";
+                              return "Enter correct email !!!";
                             }
                             return null;
                           },

@@ -74,7 +74,7 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     children: [
                       Container(
-                        height: size.height*.08,
+                        height: size.height*.07,
                         decoration: BoxDecoration(
                           color:Colors.purple.shade300,
                           borderRadius: BorderRadius.all(Radius.circular(50))
@@ -108,11 +108,11 @@ class _SignUpState extends State<SignUp> {
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.transparent)),
                           ),
-                        ).px(4),
+                        ).px(4).py(3),
                       ),
                       15.heightBox,
                       Container(
-                        height: size.height*.08,
+                        height: size.height*.07,
                         decoration: BoxDecoration(
                           color:Colors.purple.shade300,
                           borderRadius: BorderRadius.all(Radius.circular(50))
@@ -121,7 +121,7 @@ class _SignUpState extends State<SignUp> {
                           controller:_emailcontroller,
                           validator: (value){
                             if(!EmailValidator.validate(value!)){
-                              return "Enter correct email!!!";
+                              return "Enter correct email !!!";
                             }
                             return null;
                           },
@@ -147,11 +147,11 @@ class _SignUpState extends State<SignUp> {
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.transparent)),
                           ),
-                        ).px(4),
+                        ).px(4).py(3),
                       ),
                       15.heightBox,
                       Container(
-                        height: size.height*.08,
+                        height: size.height*.07,
                         decoration: BoxDecoration(
                           color:Colors.purple.shade300,
                           borderRadius: BorderRadius.all(Radius.circular(50))
@@ -203,7 +203,7 @@ class _SignUpState extends State<SignUp> {
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.transparent)),
                           ),
-                        ).px(4),
+                        ).px(4).py(3),
                       ),
                       30.heightBox,
                       ElevatedButton(
