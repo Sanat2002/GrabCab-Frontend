@@ -19,6 +19,8 @@ class _SignUpState extends State<SignUp> {
 
   bool _visible = false;
 
+  final _formkey = GlobalKey<FormState>();
+
   final _namecontroller = TextEditingController();
   final _emailcontroller = TextEditingController();
   final _passcontroller = TextEditingController();
@@ -67,147 +69,158 @@ class _SignUpState extends State<SignUp> {
                 top:size.height*.52,
                 left: 40,
                 right: 40,
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color:Colors.purple.shade300,
-                        borderRadius: BorderRadius.all(Radius.circular(50))
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: size.height*.08,
+                        decoration: BoxDecoration(
+                          color:Colors.purple.shade300,
+                          borderRadius: BorderRadius.all(Radius.circular(50))
+                        ),
+                        child: TextFormField(
+                          controller: _namecontroller,
+                          validator:(value){
+                            if(value!.isEmpty){
+                              return "Enter username";
+                            }
+                            return null;
+                          },
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                          cursorColor: Colors.white,
+                          cursorRadius: Radius.circular(10),
+                          cursorHeight: 25,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.person,color: Colors.white,size: 30,),
+                            hintText: "Username",
+                            hintStyle: TextStyle(color: Colors.white),
+                            errorStyle: TextStyle(color: Colors.white),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                          ),
+                        ).px(4),
                       ),
-                      child: TextFormField(
-                        controller: _namecontroller,
-                        validator:(value){
-                          if(value!.isEmpty){
-                            return "Enter username";
-                          }
-                          return null;
-                        },
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+                      15.heightBox,
+                      Container(
+                        height: size.height*.08,
+                        decoration: BoxDecoration(
+                          color:Colors.purple.shade300,
+                          borderRadius: BorderRadius.all(Radius.circular(50))
                         ),
-                        cursorColor: Colors.white,
-                        cursorRadius: Radius.circular(10),
-                        cursorHeight: 25,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person,color: Colors.white,size: 30,),
-                          hintText: "Username",
-                          hintStyle: TextStyle(color: Colors.white),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                        ),
-                      ).px(4),
-                    ),
-                    15.heightBox,
-                    Container(
-                      decoration: BoxDecoration(
-                        color:Colors.purple.shade300,
-                        borderRadius: BorderRadius.all(Radius.circular(50))
+                        child: TextFormField(
+                          controller:_emailcontroller,
+                          validator: (value){
+                            if(!EmailValidator.validate(value!)){
+                              return "Enter correct email!!!";
+                            }
+                            return null;
+                          },
+                          keyboardType:TextInputType.emailAddress,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                          cursorColor: Colors.white,
+                          cursorRadius: Radius.circular(10),
+                          cursorHeight: 25,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.mail,color: Colors.white,size: 28,),
+                            hintText: "Email address",
+                            hintStyle: TextStyle(color: Colors.white),
+                            errorStyle: TextStyle(color: Colors.white),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                          ),
+                        ).px(4),
                       ),
-                      child: TextFormField(
-                        controller:_emailcontroller,
-                        validator: (value){
-                          if(!EmailValidator.validate(value!)){
-                            return "Enter correct email!!!";
-                          }
-                          return null;
-                        },
-                        keyboardType:TextInputType.emailAddress,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+                      15.heightBox,
+                      Container(
+                        height: size.height*.08,
+                        decoration: BoxDecoration(
+                          color:Colors.purple.shade300,
+                          borderRadius: BorderRadius.all(Radius.circular(50))
                         ),
-                        cursorColor: Colors.white,
-                        cursorRadius: Radius.circular(10),
-                        cursorHeight: 25,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.mail,color: Colors.white,size: 28,),
-                          hintText: "Email address",
-                          hintStyle: TextStyle(color: Colors.white),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                        ),
-                      ).px(4),
-                    ),
-                    15.heightBox,
-                    Container(
-                      decoration: BoxDecoration(
-                        color:Colors.purple.shade300,
-                        borderRadius: BorderRadius.all(Radius.circular(50))
-                      ),
-                      child: TextFormField(
-                        controller: _passcontroller,
-                        validator:(value){
-                          if(value!.length<6){
-                            return "Password length must be greater than 6";
-                          }
-                          return null;
-                        },
-                        obscureText:_visible?false:true,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                        cursorColor: Colors.white,
-                        cursorRadius: Radius.circular(10),
-                        cursorHeight: 25,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock,color: Colors.white,size: 30,),
-                          suffixIcon: _visible? Padding(
-                            padding: EdgeInsets.only(right: 10),
-                            child: IconButton(
+                        child: TextFormField(
+                          controller: _passcontroller,
+                          validator:(value){
+                            if(value!.length<6){
+                              return "Password length must be greater than 6";
+                            }
+                            return null;
+                          },
+                          obscureText:_visible?false:true,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                          cursorColor: Colors.white,
+                          cursorRadius: Radius.circular(10),
+                          cursorHeight: 25,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.lock,color: Colors.white,size: 30,),
+                            suffixIcon: _visible? Padding(
+                              padding: EdgeInsets.only(right: 10),
+                              child: IconButton(
+                                splashRadius: 1,
+                                onPressed: (){
+                                  setState(() {
+                                    _visible = false;
+                                  });
+                              }, icon: Icon(Icons.visibility,color:Colors.white,)),
+                            ) : Padding(padding:EdgeInsets.only(right: 10),child: IconButton(
                               splashRadius: 1,
                               onPressed: (){
                                 setState(() {
-                                  _visible = false;
+                                  _visible = true;
                                 });
-                            }, icon: Icon(Icons.visibility,color:Colors.white,)),
-                          ) : Padding(padding:EdgeInsets.only(right: 10),child: IconButton(
-                            splashRadius: 1,
-                            onPressed: (){
-                              setState(() {
-                                _visible = true;
-                              });
-                            },
-                            icon: Icon(Icons.visibility_off,color:Colors.white,))),
-                          hintText: "Password",
-                          hintStyle: TextStyle(color: Colors.white),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                        ),
-                      ).px(4),
-                    ),
-                    30.heightBox,
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20)),
-                        backgroundColor: MaterialStateProperty.all(Colors.purple.shade500),
-                        shape:MaterialStateProperty.all(StadiumBorder())
+                              },
+                              icon: Icon(Icons.visibility_off,color:Colors.white,))),
+                            hintText: "Password",
+                            hintStyle: TextStyle(color: Colors.white),
+                            errorStyle: TextStyle(color: Colors.white),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent)),
+                          ),
+                        ).px(4),
                       ),
-                      onPressed: (){
+                      30.heightBox,
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20)),
+                          backgroundColor: MaterialStateProperty.all(Colors.purple.shade500),
+                          shape:MaterialStateProperty.all(StadiumBorder())
+                        ),
+                        onPressed: (){
+                          if(_formkey.currentState!.validate()){
 
-                      }, 
-                      child: "Sign Up".text.make()
-                    ).wh(size.width*.35, size.height*.055),
-                  ],
+                          }
+                        }, 
+                        child: "Sign Up".text.make()
+                      ).wh(size.width*.35, size.height*.055),
+                    ],
+                  ),
                 )
               ),
             ],
