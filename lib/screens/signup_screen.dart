@@ -42,7 +42,17 @@ class _SignUpState extends State<SignUp> {
     await _auth.currentUser!.reload();
     if(_auth.currentUser!.emailVerified){
       timer.cancel();
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()) , (route) => false);
+      Navigator.pushAndRemoveUntil(context, PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 400),
+        transitionsBuilder: (context, animation, secondaryAnimation, child){
+          return ScaleTransition(
+            alignment: Alignment.bottomLeft,
+            child:child,
+            scale: animation,);
+        },
+        pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation){
+          return Home();
+        }) , (route) => false);
     }
   }
 

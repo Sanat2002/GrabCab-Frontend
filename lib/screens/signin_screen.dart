@@ -204,7 +204,17 @@ class _SignInState extends State<SignIn> {
 
                             if(res == "Success"){
                               if(_auth.currentUser!.emailVerified){
-                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()), (route) => false);
+                                Navigator.pushAndRemoveUntil(context, PageRouteBuilder(
+                                  transitionDuration: Duration(milliseconds: 400),
+                                  transitionsBuilder: (context, animation, secondaryAnimation, child){
+                                  return ScaleTransition(
+                                    alignment: Alignment.bottomLeft,
+                                    child:child,
+                                    scale: animation,);
+                                  },
+                                  pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation){
+                                    return Home();
+                                }) , (route) => false);
                               }
                               else{
                                 await AuthenticationService().signout();

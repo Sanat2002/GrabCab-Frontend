@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
           await AuthenticationService().signout();
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const SignIn()), (route) => false);
         },
-        child: "Signout".text.make().centered(),)
+        child: "Signout".text.make(),).centered()
     );
   }
 }
