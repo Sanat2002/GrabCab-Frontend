@@ -6,6 +6,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:email_validator/email_validator.dart';
+import 'dart:async';
 
 class SignIn extends StatefulWidget {
   const SignIn({ Key? key }) : super(key: key);
@@ -19,12 +20,25 @@ class _SignInState extends State<SignIn> {
   bool _visible = false;
 
   final _formkey = GlobalKey<FormState>();
+  late Timer timer;
 
   final _emailcontroller = TextEditingController();
   final _passcontroller = TextEditingController();
 
+    infunct(){
+      timer = Timer.periodic(Duration(seconds: 3), (timer) { 
+        verifymail();
+      });
+    }
+
+    verifymail(){
+      timer.cancel();
+      Navigator.pop(context);
+    }
+
   verifydialog(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    infunct();
 
     showDialog(context: context, 
     builder: (context){
@@ -88,7 +102,7 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     children: [
                       Container(
-                        height: size.height*.07,
+                        height: size.height*.076,
                         decoration: BoxDecoration(
                           color: Colors.purple.shade200,
                           borderRadius: BorderRadius.circular(40)
@@ -138,7 +152,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       25.heightBox,
                       Container(
-                        height: size.height*.07,
+                        height: size.height*.076,
                         decoration: BoxDecoration(
                           color: Colors.purple.shade200,
                           borderRadius: BorderRadius.circular(40)

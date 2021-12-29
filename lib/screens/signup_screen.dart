@@ -74,7 +74,7 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     children: [
                       Container(
-                        height: size.height*.07,
+                        height: size.height*.076,
                         decoration: BoxDecoration(
                           color:Colors.purple.shade300,
                           borderRadius: BorderRadius.all(Radius.circular(50))
@@ -112,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       15.heightBox,
                       Container(
-                        height: size.height*.07,
+                        height: size.height*.076,
                         decoration: BoxDecoration(
                           color:Colors.purple.shade300,
                           borderRadius: BorderRadius.all(Radius.circular(50))
