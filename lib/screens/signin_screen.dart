@@ -25,41 +25,6 @@ class _SignInState extends State<SignIn> {
   final _emailcontroller = TextEditingController();
   final _passcontroller = TextEditingController();
 
-    infunct(){
-      timer = Timer.periodic(Duration(seconds: 3), (timer) { 
-        verifymail();
-      });
-    }
-
-    verifymail(){
-      timer.cancel();
-      Navigator.pop(context);
-    }
-
-  verifydialog(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    infunct();
-
-    showDialog(context: context, 
-    builder: (context){
-      return AlertDialog(
-        backgroundColor: Colors.white,
-        content: SizedBox(
-          height: size.height*.39,
-          width: size.width*.9,
-          child: Column(
-            children: [
-              "Email Verification...".text.textStyle(TextStyle(fontSize: size.height*.04,fontWeight: FontWeight.bold,fontFamily: GoogleFonts.abel().fontFamily)).make(),
-              Divider(color: Colors.black,),
-              Lottie.asset("assets/verifymail_ani.json",height:200),
-              "Verification link has been sent to,".text.xl.make(),
-              _emailcontroller.text.text.blue500.textStyle(TextStyle(fontSize:20)).make()
-            ],
-          ),
-        ),
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +192,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         onPressed: (){
                           if(_formkey.currentState!.validate()){
-                            verifydialog(context);
+                            
                           }
                         }, 
                         child: "Sign In".text.xl2.make()

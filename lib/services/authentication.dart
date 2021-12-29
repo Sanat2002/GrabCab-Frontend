@@ -19,7 +19,7 @@ class AuthenticationService {
     }
   }
 
-  Future<String> signinemai(email, password) async {
+  Future<String> signinemail(email, password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       return "Success";

@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grabcab/painters/signup_painter.dart';
+import 'package:grabcab/screens/home_screen.dart';
 import 'package:grabcab/screens/signin_screen.dart';
+import 'package:grabcab/services/authentication.dart';
 import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:async';
 
 class SignUp extends StatefulWidget {
   const SignUp({ Key? key }) : super(key: key);
@@ -18,12 +22,53 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
 
   bool _visible = false;
+  late Timer timer;
+  final _auth = FirebaseAuth.instance;
 
   final _formkey = GlobalKey<FormState>();
 
   final _namecontroller = TextEditingController();
   final _emailcontroller = TextEditingController();
   final _passcontroller = TextEditingController();
+
+  infunct(){
+    timer = Timer.periodic(Duration(seconds: 3), (timer) { 
+      verifymail();
+    });
+  }
+
+  verifymail() async{
+    await _auth.currentUser!.reload();
+    if(_auth.currentUser!.emailVerified){
+      timer.cancel();
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()) , (route) => false);
+    }
+  }
+
+  verifydialog(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    infunct();
+
+    showDialog(context: context, 
+    builder: (context){
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        content: SizedBox(
+          height: size.height*.39,
+          width: size.width*.9,
+          child: Column(
+            children: [
+              "Email Verification...".text.textStyle(TextStyle(fontSize: size.height*.04,fontWeight: FontWeight.bold,fontFamily: GoogleFonts.abel().fontFamily)).make(),
+              Divider(color: Colors.black,),
+              Lottie.asset("assets/verifymail_ani.json",height:200),
+              "Verification link has been sent to,".text.xl.make(),
+              _emailcontroller.text.text.blue500.textStyle(TextStyle(fontSize:20)).make()
+            ],
+          ),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,9 +257,16 @@ class _SignUpState extends State<SignUp> {
                           backgroundColor: MaterialStateProperty.all(Colors.purple.shade500),
                           shape:MaterialStateProperty.all(StadiumBorder())
                         ),
-                        onPressed: (){
+                        onPressed: () async{
                           if(_formkey.currentState!.validate()){
-    
+                            var res = await AuthenticationService().signupemail(_emailcontroller.text, _passcontroller.text);
+
+                            if(res=="Success"){
+                              verifydialog(context);
+                            }
+
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: res.text.red400.make()));
+
                           }
                         }, 
                         child: "Sign Up".text.make()
