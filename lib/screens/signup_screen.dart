@@ -116,6 +116,7 @@ class _SignUpState extends State<SignUp> {
                           if(!EmailValidator.validate(value!)){
                             return "Enter correct email!!!";
                           }
+                          return null;
                         },
                         keyboardType:TextInputType.emailAddress,
                         style: TextStyle(
@@ -147,6 +148,13 @@ class _SignUpState extends State<SignUp> {
                         borderRadius: BorderRadius.all(Radius.circular(50))
                       ),
                       child: TextFormField(
+                        controller: _passcontroller,
+                        validator:(value){
+                          if(value!.length<6){
+                            return "Password length must be greater than 6";
+                          }
+                          return null;
+                        },
                         obscureText:_visible?false:true,
                         style: TextStyle(
                           color: Colors.white,
