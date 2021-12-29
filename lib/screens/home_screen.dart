@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grabcab/screens/signin_screen.dart';
 import 'package:grabcab/services/authentication.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -16,9 +17,9 @@ class _HomeState extends State<Home> {
       body:ElevatedButton(
         onPressed: () async{
           await AuthenticationService().signout();
-          
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const SignIn()), (route) => false);
         },
-        child: "Signout".text.make(),)
+        child: "Signout".text.make().centered(),)
     );
   }
 }

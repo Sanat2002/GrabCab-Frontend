@@ -3,6 +3,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grabcab/screens/home_screen.dart';
 import 'package:grabcab/screens/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
@@ -24,12 +25,20 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  // bool 
+  bool show = false;
   final _auth = FirebaseAuth.instance;
-
 
   @override
   Widget build(BuildContext context) {
+
+    final user = _auth.currentUser;
+    if(user==null){
+      show = false;
+    }
+    else if(_auth.currentUser!.emailVerified){
+      show = true;
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
@@ -37,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         duration: 2680,
         splashIconSize: 250,
         splash: Lottie.asset("assets/splash_ani.json"), 
-        nextScreen: SignUp()
+        nextScreen: show? Home() : SignUp(),
       )
     );
   }

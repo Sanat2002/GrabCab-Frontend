@@ -22,6 +22,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
 
   bool _visible = false;
+  bool _isloading = false;
   late Timer timer;
   final _auth = FirebaseAuth.instance;
 
@@ -45,11 +46,11 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-  verifydialog(BuildContext context) {
+  verifydialog(BuildContext context){
     Size size = MediaQuery.of(context).size;
     infunct();
 
-    showDialog(context: context, 
+   showDialog(context: context, 
     builder: (context){
       return AlertDialog(
         backgroundColor: Colors.white,
@@ -67,14 +68,14 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       );
-    });
+    }).then((value) => timer.cancel()); // this .then() will when the dialog is dispossed
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
+    return _isloading? Scaffold(body: Center(child: CircularProgressIndicator(color:Colors.purple.shade500))): Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
           height: size.height,
@@ -259,14 +260,19 @@ class _SignUpState extends State<SignUp> {
                         ),
                         onPressed: () async{
                           if(_formkey.currentState!.validate()){
+                            setState(() {
+                              _isloading = true;
+                            });
                             var res = await AuthenticationService().signupemail(_emailcontroller.text, _passcontroller.text);
 
                             if(res=="Success"){
+                              setState(() {
+                                _isloading = false;
+                              });
                               verifydialog(context);
                             }
 
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: res.text.red400.make()));
-
                           }
                         }, 
                         child: "Sign Up".text.make()
