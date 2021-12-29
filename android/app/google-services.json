@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "901810944505",
+    "project_id": "flutter-grabcab",
+    "storage_bucket": "flutter-grabcab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901810944505:android:9d7872bcba682546752528",
+        "android_client_info": {
+          "package_name": "com.example.grabcab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901810944505-ru6s7ga1k030c9ddc8kjeb16auff1u3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZcCniXOh9aFV5KOo87JqLXfB9HMOr3Ac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901810944505-ru6s7ga1k030c9ddc8kjeb16auff1u3r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
