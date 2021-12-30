@@ -78,7 +78,7 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       );
-    }).then((value) => timer.cancel()); // this .then() will when the dialog is dispossed
+    }).then((value) => timer.cancel()); // this .then() will work when the dialog is dispossed
   }
 
   @override
