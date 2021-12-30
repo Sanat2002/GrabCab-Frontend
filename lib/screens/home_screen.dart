@@ -7,7 +7,6 @@ import 'package:grabcab/screens/cabdetail_screen.dart';
 import 'package:grabcab/screens/mygrabs_screen.dart';
 import 'package:grabcab/screens/signin_screen.dart';
 import 'package:grabcab/services/authentication.dart';
-import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class Home extends StatefulWidget {
