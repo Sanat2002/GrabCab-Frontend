@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grabcab/screens/signin_screen.dart';
@@ -14,6 +15,128 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  final _namecontroller = TextEditingController();
+  final _passcontroller = TextEditingController();
+  final _emailcontroller = TextEditingController();
+
+  profiledialog(BuildContext context){
+    Size size = MediaQuery.of(context).size;
+
+    showDialog(
+      context: context, 
+      builder: (context){
+        return AlertDialog(
+          content: SizedBox(
+            height: size.height*.5 ,
+            width: size.width,
+            child: Column(
+              children: [
+                "Profile".text.xl4.textStyle(TextStyle(fontFamily: GoogleFonts.cardo().fontFamily)).make(),
+                Divider(color: Colors.black,),
+                TextFormField(
+                  controller: _namecontroller,
+                  validator: (value){
+                    if(value!.isEmpty){
+                      return "Enter name";
+                    }
+                    return null;
+                  },
+                  cursorColor: Colors.purple.shade300,
+                  cursorHeight: 23,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: GoogleFonts.cardo().fontFamily,
+                    fontSize: 18
+                  ),
+                  decoration: InputDecoration(
+                    hintText: "Enter name",
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple.shade300)
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple.shade300)
+                    ),
+                    // errorBorder: UnderlineInputBorder(
+                    //   borderSide: BorderSide(color: Colors.purple.shade300)
+                    // ),
+                    // focusedErrorBorder: UnderlineInputBorder(
+                    //   borderSide: BorderSide(color: Colors.purple.shade300)
+                    // )
+                  ),
+                ),
+                20.heightBox,
+                TextFormField(
+                  controller: _emailcontroller,
+                  validator: (value){
+                    if(!EmailValidator.validate(value!)){
+                      return "Enter valid email";
+                    }
+                    return null;
+                  },
+                  cursorColor: Colors.purple.shade300,
+                  cursorHeight: 23,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: GoogleFonts.cardo().fontFamily,
+                    fontSize: 18
+                  ),
+                  decoration: InputDecoration(
+                    hintText: "Enter email address",
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple.shade300)
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple.shade300)
+                    ),
+                    // errorBorder: UnderlineInputBorder(
+                    //   borderSide: BorderSide(color: Colors.purple.shade300)
+                    // ),
+                    // focusedErrorBorder: UnderlineInputBorder(
+                    //   borderSide: BorderSide(color: Colors.purple.shade300)
+                    // )
+                  ),
+                ),
+                20.heightBox,
+                TextFormField(
+                  controller: _passcontroller,
+                  validator: (value){
+                    if(value!.length<6){
+                      return "Length should be greater than 6";
+                    }
+                    return null;
+                  },
+                  cursorColor: Colors.purple.shade300,
+                  cursorHeight: 23,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: GoogleFonts.cardo().fontFamily,
+                    fontSize: 18
+                  ),
+                  decoration: InputDecoration(
+                    hintText: "Enter password",
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple.shade300)
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple.shade300)
+                    ),
+                    // errorBorder: UnderlineInputBorder(
+                    //   borderSide: BorderSide(color: Colors.purple.shade300)
+                    // ),
+                    // focusedErrorBorder: UnderlineInputBorder(
+                    //   borderSide: BorderSide(color: Colors.purple.shade300)
+                    // )
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -110,7 +233,7 @@ class _HomeState extends State<Home> {
               tileColor: Vx.gray300,
               title: Padding(padding: EdgeInsets.only(left: 25),child: "Profile".text.xl.make()),
               onTap: (){
-                
+                profiledialog(context);
               },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
@@ -157,7 +280,7 @@ class _HomeState extends State<Home> {
                 borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
               ),
               contentPadding: EdgeInsets.only(left:20),
-            ).px(15)
+            ).px(15),
           ]),
       ),
     );
