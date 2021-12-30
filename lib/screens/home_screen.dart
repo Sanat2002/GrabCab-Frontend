@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grabcab/screens/cabdetail_screen.dart';
+import 'package:grabcab/screens/mygrabs_screen.dart';
 import 'package:grabcab/screens/signin_screen.dart';
 import 'package:grabcab/services/authentication.dart';
 import 'package:lottie/lottie.dart';
@@ -272,7 +273,19 @@ class _HomeState extends State<Home> {
               tileColor: Vx.gray300,
               title: Padding(padding: EdgeInsets.only(left: 25),child: "My Grabs".text.xl.make()),
               onTap: (){
-                
+                Navigator.push(context, PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 500),
+                  transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
+                    animation = CurvedAnimation(parent: animation, curve: Curves.easeOutQuad);
+                    return Align(
+                      child: SizeTransition(
+                        sizeFactor: animation,
+                        child:child),
+                    );
+                  },
+                  pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation){
+                  return MyGrabs();
+                }));
               },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
