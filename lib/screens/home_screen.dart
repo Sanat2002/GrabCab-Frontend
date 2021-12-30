@@ -3,8 +3,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grabcab/screens/cabdetail_screen.dart';
 import 'package:grabcab/screens/signin_screen.dart';
 import 'package:grabcab/services/authentication.dart';
+import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class Home extends StatefulWidget {
@@ -15,6 +17,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  final _formkey = GlobalKey<FormState>();
 
   final _namecontroller = TextEditingController();
   final _passcontroller = TextEditingController();
@@ -28,108 +32,123 @@ class _HomeState extends State<Home> {
       builder: (context){
         return AlertDialog(
           content: SizedBox(
-            height: size.height*.5 ,
+            height: size.height*.467,
             width: size.width,
-            child: Column(
-              children: [
-                "Profile".text.xl4.textStyle(TextStyle(fontFamily: GoogleFonts.cardo().fontFamily)).make(),
-                Divider(color: Colors.black,),
-                TextFormField(
-                  controller: _namecontroller,
-                  validator: (value){
-                    if(value!.isEmpty){
-                      return "Enter name";
-                    }
-                    return null;
-                  },
-                  cursorColor: Colors.purple.shade300,
-                  cursorHeight: 23,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: GoogleFonts.cardo().fontFamily,
-                    fontSize: 18
-                  ),
-                  decoration: InputDecoration(
-                    hintText: "Enter name",
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.purple.shade300)
+            child: Form(
+              key:_formkey,
+              child: Column(
+                children: [
+                  "Profile".text.xl4.textStyle(TextStyle(fontFamily: GoogleFonts.cardo().fontFamily)).make(),
+                  Divider(color: Colors.black,),
+                  TextFormField(
+                    controller: _namecontroller,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Enter name";
+                      }
+                      return null;
+                    },
+                    cursorColor: Colors.purple.shade300,
+                    cursorHeight: 23,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: GoogleFonts.cardo().fontFamily,
+                      fontSize: 18
                     ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.purple.shade300)
+                    decoration: InputDecoration(
+                      hintText: "Enter name",
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.purple.shade300)
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.purple.shade300)
+                      ),
+                      // errorBorder: UnderlineInputBorder(
+                      //   borderSide: BorderSide(color: Colors.purple.shade300)
+                      // ),
+                      // focusedErrorBorder: UnderlineInputBorder(
+                      //   borderSide: BorderSide(color: Colors.purple.shade300)
+                      // )
                     ),
-                    // errorBorder: UnderlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.purple.shade300)
-                    // ),
-                    // focusedErrorBorder: UnderlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.purple.shade300)
-                    // )
                   ),
-                ),
-                20.heightBox,
-                TextFormField(
-                  controller: _emailcontroller,
-                  validator: (value){
-                    if(!EmailValidator.validate(value!)){
-                      return "Enter valid email";
-                    }
-                    return null;
-                  },
-                  cursorColor: Colors.purple.shade300,
-                  cursorHeight: 23,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: GoogleFonts.cardo().fontFamily,
-                    fontSize: 18
-                  ),
-                  decoration: InputDecoration(
-                    hintText: "Enter email address",
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.purple.shade300)
+                  20.heightBox,
+                  TextFormField(
+                    controller: _emailcontroller,
+                    validator: (value){
+                      if(!EmailValidator.validate(value!)){
+                        return "Enter valid email";
+                      }
+                      return null;
+                    },
+                    cursorColor: Colors.purple.shade300,
+                    cursorHeight: 23,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: GoogleFonts.cardo().fontFamily,
+                      fontSize: 18
                     ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.purple.shade300)
+                    decoration: InputDecoration(
+                      hintText: "Enter email address",
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.purple.shade300)
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.purple.shade300)
+                      ),
+                      // errorBorder: UnderlineInputBorder(
+                      //   borderSide: BorderSide(color: Colors.purple.shade300)
+                      // ),
+                      // focusedErrorBorder: UnderlineInputBorder(
+                      //   borderSide: BorderSide(color: Colors.purple.shade300)
+                      // )
                     ),
-                    // errorBorder: UnderlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.purple.shade300)
-                    // ),
-                    // focusedErrorBorder: UnderlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.purple.shade300)
-                    // )
                   ),
-                ),
-                20.heightBox,
-                TextFormField(
-                  controller: _passcontroller,
-                  validator: (value){
-                    if(value!.length<6){
-                      return "Length should be greater than 6";
-                    }
-                    return null;
-                  },
-                  cursorColor: Colors.purple.shade300,
-                  cursorHeight: 23,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: GoogleFonts.cardo().fontFamily,
-                    fontSize: 18
-                  ),
-                  decoration: InputDecoration(
-                    hintText: "Enter password",
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.purple.shade300)
+                  20.heightBox,
+                  TextFormField(
+                    controller: _passcontroller,
+                    validator: (value){
+                      if(value!.length<6){
+                        return "Length should be greater than 6";
+                      }
+                      return null;
+                    },
+                    cursorColor: Colors.purple.shade300,
+                    cursorHeight: 23,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: GoogleFonts.cardo().fontFamily,
+                      fontSize: 18
                     ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.purple.shade300)
+                    decoration: InputDecoration(
+                      hintText: "Enter password",
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.purple.shade300)
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.purple.shade300)
+                      ),
+                      // errorBorder: UnderlineInputBorder(
+                      //   borderSide: BorderSide(color: Colors.purple.shade300)
+                      // ),
+                      // focusedErrorBorder: UnderlineInputBorder(
+                      //   borderSide: BorderSide(color: Colors.purple.shade300)
+                      // )
                     ),
-                    // errorBorder: UnderlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.purple.shade300)
-                    // ),
-                    // focusedErrorBorder: UnderlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.purple.shade300)
-                    // )
                   ),
-                )
-              ],
+                  40.heightBox,
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      textStyle: MaterialStateProperty.all(TextStyle(fontSize:18)),
+                      backgroundColor: MaterialStateProperty.all(Colors.purple.shade300),
+                    ),
+                    onPressed: (){
+                      if(_formkey.currentState!.validate()){
+
+                      }
+                    }, 
+                    child: "Update".text.textStyle(TextStyle(fontFamily:GoogleFonts.cardo().fontFamily)).make())
+                ],
+              ),
             ),
           ),
         );
@@ -184,31 +203,37 @@ class _HomeState extends State<Home> {
                 bottom: 0,
                 child: ListView(
                   children: [
-                    Container(
-                      height: size.height*.35,
-                      decoration: BoxDecoration(
-                        color: Colors.purple.shade200,
-                        borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: size.height*.28,
-                            decoration:BoxDecoration(
-                              color: Colors.black,
-                              borderRadius:BorderRadius.all(Radius.circular(10))
-                            )
-                          ).px(10).py(4),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              "Audi".text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
-                              "\$2000".text.white.xl3.make(),
-                            ],
-                          ).py(7)
-                        ],
-                      ),
-                    ).px(17)
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail()));
+                      },
+                      child: Container(
+                        height: size.height*.35,
+                        decoration: BoxDecoration(
+                          color: Colors.purple.shade200,
+                          borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: size.height*.28,
+                              decoration:BoxDecoration(
+                                color: Colors.black,
+                                borderRadius:BorderRadius.all(Radius.circular(10))
+                              ),
+                              child: Hero(tag:"el",child: Lottie.asset("assets/images/del.JPG")),
+                            ).px(10).py(4),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                "Audi".text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
+                                "\$2000".text.white.xl3.make(),
+                              ],
+                            ).py(7)
+                          ],
+                        ),
+                      ).px(17),
+                    )
                   ],
                 ))
             ],
