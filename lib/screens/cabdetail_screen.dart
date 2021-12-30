@@ -69,6 +69,13 @@ class _CabDetailState extends State<CabDetail> {
                 "\$20/day".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
               ],
             ).p(4).py(4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                "Quantity".text.xl3.extraBold.make(),
+                "3".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make().px(17)
+              ],
+            ).p(4).py(4),
           ],
         ),
       ),
