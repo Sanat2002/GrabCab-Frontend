@@ -217,11 +217,11 @@ class _HomeState extends State<Home> {
                           children: [
                             Container(
                               height: size.height*.28,
+                              width: size.width*.9,
                               decoration:BoxDecoration(
-                                color: Colors.black,
                                 borderRadius:BorderRadius.all(Radius.circular(10))
                               ),
-                              child: Hero(tag:"el",child: Lottie.asset("assets/images/del.JPG")),
+                              child: Hero(tag:"el",child: Image.asset("assets/del.JPG")),
                             ).px(10).py(4),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,

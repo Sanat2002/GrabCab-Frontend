@@ -12,7 +12,7 @@ class _CabDetailState extends State<CabDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Hero(tag: "el", child: Lottie.asset("assets/images/del.JPG")),
+      body: Hero(tag: "el", child: Image.asset("assets/del.JPG")),
     );
   }
 }
