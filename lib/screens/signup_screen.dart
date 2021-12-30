@@ -281,7 +281,10 @@ class _SignUpState extends State<SignUp> {
                               });
                               verifydialog(context);
                             }
-
+                            
+                            setState(() {
+                                _isloading = false;
+                              });
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: res.text.red400.make()));
                           }
                         }, 

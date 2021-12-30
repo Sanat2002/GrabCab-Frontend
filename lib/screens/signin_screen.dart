@@ -204,6 +204,9 @@ class _SignInState extends State<SignIn> {
 
                             if(res == "Success"){
                               if(_auth.currentUser!.emailVerified){
+                                setState(() {
+                                  _isloading = false;
+                                });
                                 Navigator.pushAndRemoveUntil(context, PageRouteBuilder(
                                   transitionDuration: Duration(milliseconds: 400),
                                   transitionsBuilder: (context, animation, secondaryAnimation, child){

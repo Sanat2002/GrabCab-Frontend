@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:grabcab/screens/signin_screen.dart';
 import 'package:grabcab/services/authentication.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -37,6 +38,7 @@ class _HomeState extends State<Home> {
                   cursorHeight: 25,
                   style: TextStyle(
                     color: Colors.purple.shade400,
+                    fontSize: 18,
                   ),
                   onChanged: (value){
         
@@ -77,8 +79,8 @@ class _HomeState extends State<Home> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              "Audi".text.xl3.make(),
-                              "Rs 2000".text.xl3.make(),
+                              "Audi".text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
+                              "\$2000".text.white.xl3.make(),
                             ],
                           ).py(7)
                         ],
@@ -90,7 +92,74 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          children :[ 
+            DrawerHeader(
+            child: UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Vx.gray300,
+                borderRadius: BorderRadius.all(Radius.elliptical(20, 40))
+                ),
+              currentAccountPicture: CircleAvatar(backgroundColor: Colors.purple.shade200,),
+              accountName: "Sanat".text.black.xl3.make(),
+              accountEmail: "sanathakur2002@gamil.com".text.black.make(),
+            )).h(220),
+            ListTile(
+              leading: Icon(Icons.person,color:Colors.black),
+              tileColor: Vx.gray300,
+              title: Padding(padding: EdgeInsets.only(left: 25),child: "Profile".text.xl.make()),
+              onTap: (){
+                
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
+              ),
+              contentPadding: EdgeInsets.only(left:20),
+            ).px(15),
+            10.heightBox,
+            ListTile(
+              leading: Icon(Icons.car_rental,color:Colors.black),
+              tileColor: Vx.gray300,
+              title: Padding(padding: EdgeInsets.only(left: 25),child: "My Grabs".text.xl.make()),
+              onTap: (){
+                
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
+              ),
+              contentPadding: EdgeInsets.only(left:20),
+            ).px(15),
+            10.heightBox,
+            ListTile(
+              leading: Icon(Icons.door_back_door_outlined,color:Colors.black),
+              tileColor: Vx.gray300,
+              title: Padding(padding: EdgeInsets.only(left: 25),child: "Sign out".text.xl.make()),
+              onTap: () async{
+                await AuthenticationService().signout();
+                Navigator.pushAndRemoveUntil(context, 
+                PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 300),
+                  transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: Offset(-1, 0),
+                        end: Offset(0, 0)).animate(animation),
+                      child:child,
+                    );
+                  },
+                  pageBuilder: (BuildContext context ,Animation<double> animation,Animation<double> secanimation){
+                    return SignIn();
+                  }), 
+                  (route) => false);
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
+              ),
+              contentPadding: EdgeInsets.only(left:20),
+            ).px(15)
+          ]),
+      ),
     );
   }
 }
