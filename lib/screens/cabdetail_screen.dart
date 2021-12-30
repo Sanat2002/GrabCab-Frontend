@@ -18,57 +18,59 @@ class _CabDetailState extends State<CabDetail> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Hero(tag:"el",transitionOnUserGestures: true,child: Padding(
-            padding: EdgeInsets.only(top: 36),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Vx.gray200,
-                borderRadius: BorderRadius.all(Radius.elliptical(20, 40))
-              ),
-              height:size.height*.4 ,
-              width: size.width*.9,
-              child: Image.asset("assets/del.JPG")).px(20),
-          )),
-          Divider(color: Colors.black).px(12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              "Brand".text.xl3.extraBold.make(),
-              "Audi".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            ],
-          ).p(4).py(4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              "Model".text.xl3.extraBold.make(),
-              "AudiR8".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            ],
-          ).p(4).py(4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              "Odometer".text.xl3.extraBold.make(),
-              "1112".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            ],
-          ).p(4).py(4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              "Price".text.xl3.extraBold.make(),
-              "\$2000".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            ],
-          ).p(4).py(4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              "Rent".text.xl3.extraBold.make(),
-              "\$20/day".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            ],
-          ).p(4).py(4),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Hero(tag:"el",transitionOnUserGestures: true,child: Padding(
+              padding: EdgeInsets.only(top: 36),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Vx.gray200,
+                  borderRadius: BorderRadius.all(Radius.elliptical(20, 40))
+                ),
+                height:size.height*.4 ,
+                width: size.width*.9,
+                child: Image.asset("assets/del.JPG")).px(20),
+            )),
+            Divider(color: Colors.black).px(12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                "Brand".text.xl3.extraBold.make(),
+                "Audi".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+              ],
+            ).p(4).py(4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                "Model".text.xl3.extraBold.make(),
+                "AudiR8".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+              ],
+            ).p(4).py(4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                "Odometer".text.xl3.extraBold.make(),
+                "1112".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+              ],
+            ).p(4).py(4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                "Price".text.xl3.extraBold.make(),
+                "\$2000".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+              ],
+            ).p(4).py(4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                "Rent".text.xl3.extraBold.make(),
+                "\$20/day".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+              ],
+            ).p(4).py(4),
+          ],
+        ),
       ),
       bottomNavigationBar: SizedBox(
         height: size.height*.1,
