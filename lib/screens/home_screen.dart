@@ -64,12 +64,6 @@ class _HomeState extends State<Home> {
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.purple.shade300)
                       ),
-                      // errorBorder: UnderlineInputBorder(
-                      //   borderSide: BorderSide(color: Colors.purple.shade300)
-                      // ),
-                      // focusedErrorBorder: UnderlineInputBorder(
-                      //   borderSide: BorderSide(color: Colors.purple.shade300)
-                      // )
                     ),
                   ),
                   20.heightBox,
@@ -96,12 +90,6 @@ class _HomeState extends State<Home> {
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.purple.shade300)
                       ),
-                      // errorBorder: UnderlineInputBorder(
-                      //   borderSide: BorderSide(color: Colors.purple.shade300)
-                      // ),
-                      // focusedErrorBorder: UnderlineInputBorder(
-                      //   borderSide: BorderSide(color: Colors.purple.shade300)
-                      // )
                     ),
                   ),
                   20.heightBox,
@@ -128,12 +116,6 @@ class _HomeState extends State<Home> {
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.purple.shade300)
                       ),
-                      // errorBorder: UnderlineInputBorder(
-                      //   borderSide: BorderSide(color: Colors.purple.shade300)
-                      // ),
-                      // focusedErrorBorder: UnderlineInputBorder(
-                      //   borderSide: BorderSide(color: Colors.purple.shade300)
-                      // )
                     ),
                   ),
                   40.heightBox,
