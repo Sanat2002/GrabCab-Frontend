@@ -210,7 +210,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         height: size.height*.35,
                         decoration: BoxDecoration(
-                          color: Colors.purple.shade200,
+                          color: Vx.gray300,
                           borderRadius: BorderRadius.all(Radius.circular(10))
                         ),
                         child: Column(
@@ -222,14 +222,15 @@ class _HomeState extends State<Home> {
                                 borderRadius:BorderRadius.all(Radius.circular(10))
                               ),
                               child: Hero(tag:"el",child: Image.asset("assets/del.JPG")),
-                            ).px(10).py(4),
+                            ).px(10),
+                            Divider(color: Colors.black,).px(18),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 "Audi".text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
                                 "\$2000".text.white.xl3.make(),
                               ],
-                            ).py(7)
+                            )
                           ],
                         ),
                       ).px(17),

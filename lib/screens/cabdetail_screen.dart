@@ -32,7 +32,7 @@ class _CabDetailState extends State<CabDetail> {
               width: size.width*.9,
               child: Image.asset("assets/del.JPG")).px(20),
           )),
-          Divider(color: Colors.black),
+          Divider(color: Colors.black).px(12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -70,27 +70,35 @@ class _CabDetailState extends State<CabDetail> {
           ).p(4).py(4),
         ],
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ElevatedButton(
-            style:ButtonStyle(
-              backgroundColor:MaterialStateProperty.all(Colors.purple.shade300),
-            ),
-            onPressed: (){
-
-            },
-            child: "Rent".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make()),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor:MaterialStateProperty.all(Colors.purple.shade600)
-            ),
-            onPressed: (){
-
-            },
-            child: "Buy".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make())
-        ],
-      ).py(10),
+      bottomNavigationBar: SizedBox(
+        height: size.height*.1,
+        child: Column(
+          children: [
+            "Grab as :".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl4.make(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style:ButtonStyle(
+                    backgroundColor:MaterialStateProperty.all(Colors.purple.shade300),
+                  ),
+                  onPressed: (){
+      
+                  },
+                  child: "Rent".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make()),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor:MaterialStateProperty.all(Colors.purple.shade600)
+                  ),
+                  onPressed: (){
+      
+                  },
+                  child: "Buy".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make())
+              ],
+            ).py(0),
+          ],
+        ),
+      ),
     );
   }
 }
