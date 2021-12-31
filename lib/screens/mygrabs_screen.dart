@@ -31,11 +31,11 @@ class _MyGrabsState extends State<MyGrabs> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  "Rent Cabs".text.xl2.make().p(4),
+                  "Rent Cabs".text.extraBold.xl2.make().p(4).px(8),
+                  Divider(color: Colors.black,).px(6),
                   ExpansionTile(
-                    iconColor: Colors.purple.shade300,
                     leading: CircleAvatar(),
-                    trailing: "Return".text.make(),
+                    // trailing: "Return".text.make(),
                     title: "Audi".text.black.xl.make(),
                     subtitle: "AudiR8".text.color(Vx.gray600).make(),
                     children: [
@@ -53,46 +53,22 @@ class _MyGrabsState extends State<MyGrabs> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               "1000km".text.make(),
-                              "\$2000".text.make()
+                              "\$2000".text.xl.green600.make()
                             ],
-                          )
+                          ),
+                          10.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              TextButton(
+                                onPressed: (){
+
+                                }, 
+                                child: "Return".text.red800.xl.make())
+                            ],
+                          ),
                         ],
                       )
-            //            Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     "Brand".text.xl.extraBold.make(),
-            //     "Audi".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            //   ],
-            // ).p(4).py(4),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     "Model".text.xl.extraBold.make(),
-            //     "AudiR8".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            //   ],
-            // ).p(4).py(4),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     "Odometer".text.xl.extraBold.make(),
-            //     "1112".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            //   ],
-            // ).p(4).py(4),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     "Price".text.xl.extraBold.make(),
-            //     "\$2000".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            //   ],
-            // ).p(4).py(4),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     "Rent".text.xl.extraBold.make(),
-            //     "\$20/day".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-            //   ],
-            // ).p(4).py(4),
                     ],
                   ),
                 ],
@@ -107,12 +83,32 @@ class _MyGrabsState extends State<MyGrabs> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  "Bought Cabs".text.xl2.make().p(4),
+                  "Bought Cabs".text.extraBold.xl2.make().p(4).px(8),
+                  Divider(color: Colors.black,).px(6),
                   ExpansionTile(
                     leading: CircleAvatar(),
-                    title: "Audi".text.make(),
+                    title: "Audi".text.black.xl.make(),
+                    subtitle: "AudiR8".text.color(Vx.gray600).make(),
                     children: [
-                      "Audi".text.make()
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              "Audi".text.make(),
+                              "AudiR8".text.make()
+                            ],
+                          ),
+                          10.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              "1000km".text.make(),
+                              "\$2000".text.xl.green600.make()
+                            ],
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ],
@@ -122,33 +118,5 @@ class _MyGrabsState extends State<MyGrabs> {
         ],
       ),
     );
-
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     backgroundColor: Colors.purple.shade400,
-    //     title: "My Grabs".text.xl3.make().px(70),
-    //   ),
-    //   body: Container(
-    //     height: size.height*.1 ,
-    //     decoration: BoxDecoration(
-    //       color: Colors.black26,
-    //       borderRadius: BorderRadius.all(Radius.circular(20))
-    //     ),
-    //     child: Row(
-    //       children: [
-    //         20.widthBox,
-    //         CircleAvatar(radius: 33,),
-    //         20.widthBox,
-    //         SizedBox(width:size.width*.34,child: "Audi".text.xl2.make()),
-    //         50.widthBox,
-    //         TextButton(
-    //           onPressed: (){
-
-    //           }, 
-    //           child: "Return".text.rose600.xl2.make())
-    //       ],
-    //     ),
-    //   ).px(10).py(8),
-    // );
   }
 }
