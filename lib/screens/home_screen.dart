@@ -20,9 +20,9 @@ class _HomeState extends State<Home> {
 
   final _formkey = GlobalKey<FormState>();
 
-  final _namecontroller = TextEditingController();
-  final _passcontroller = TextEditingController();
-  final _emailcontroller = TextEditingController();
+  String _name="";
+  String _email="";
+  String _pass="";
 
   profiledialog(BuildContext context){
     Size size = MediaQuery.of(context).size;
@@ -41,7 +41,9 @@ class _HomeState extends State<Home> {
                   "Profile".text.xl4.textStyle(TextStyle(fontFamily: GoogleFonts.cardo().fontFamily)).make(),
                   Divider(color: Colors.black,),
                   TextFormField(
-                    controller: _namecontroller,
+                    onChanged: (e){
+                      _name = e;
+                    },
                     validator: (value){
                       if(value!.isEmpty){
                         return "Enter name";
@@ -67,7 +69,9 @@ class _HomeState extends State<Home> {
                   ),
                   20.heightBox,
                   TextFormField(
-                    controller: _emailcontroller,
+                    onChanged: (e){
+                      _email = e;
+                    },
                     validator: (value){
                       if(!EmailValidator.validate(value!)){
                         return "Enter valid email";
@@ -93,7 +97,9 @@ class _HomeState extends State<Home> {
                   ),
                   20.heightBox,
                   TextFormField(
-                    controller: _passcontroller,
+                    onChanged: (e){
+                      _pass = e;
+                    },
                     validator: (value){
                       if(value!.length<6){
                         return "Length should be greater than 6";
