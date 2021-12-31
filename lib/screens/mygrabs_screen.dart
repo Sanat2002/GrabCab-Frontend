@@ -25,7 +25,7 @@ class _MyGrabsState extends State<MyGrabs> {
       body:Column(
         children: [
           Container(
-            color: Colors.black26,
+            // color: Colors.black26,
             height: size.height*.44,
             child:SingleChildScrollView(
               child: Column(
@@ -35,7 +35,6 @@ class _MyGrabsState extends State<MyGrabs> {
                   Divider(color: Colors.black,).px(6),
                   ExpansionTile(
                     leading: CircleAvatar(),
-                    // trailing: "Return".text.make(),
                     title: "Audi".text.black.xl.make(),
                     subtitle: "AudiR8".text.color(Vx.gray600).make(),
                     children: [
@@ -75,9 +74,9 @@ class _MyGrabsState extends State<MyGrabs> {
               ),
             )
           ),
-          Divider(),
+          Divider(color: Vx.gray700,thickness: 2,),
           Container(
-            color: Colors.black26,
+            // color: Colors.black26,
             height: size.height*.44,
             child:SingleChildScrollView(
               child: Column(
