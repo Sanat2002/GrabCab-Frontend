@@ -33,45 +33,66 @@ class _MyGrabsState extends State<MyGrabs> {
                 children: [
                   "Rent Cabs".text.xl2.make().p(4),
                   ExpansionTile(
+                    iconColor: Colors.purple.shade300,
                     leading: CircleAvatar(),
+                    trailing: "Return".text.make(),
                     title: "Audi".text.black.xl.make(),
                     subtitle: "AudiR8".text.color(Vx.gray600).make(),
                     children: [
-                       Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                "Brand".text.xl3.extraBold.make(),
-                "Audi".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-              ],
-            ).p(4).py(4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                "Model".text.xl3.extraBold.make(),
-                "AudiR8".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-              ],
-            ).p(4).py(4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                "Odometer".text.xl3.extraBold.make(),
-                "1112".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-              ],
-            ).p(4).py(4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                "Price".text.xl3.extraBold.make(),
-                "\$2000".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-              ],
-            ).p(4).py(4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                "Rent".text.xl3.extraBold.make(),
-                "\$20/day".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-              ],
-            ).p(4).py(4),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              "Audi".text.make(),
+                              "AudiR8".text.make()
+                            ],
+                          ),
+                          10.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              "1000km".text.make(),
+                              "\$2000".text.make()
+                            ],
+                          )
+                        ],
+                      )
+            //            Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     "Brand".text.xl.extraBold.make(),
+            //     "Audi".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+            //   ],
+            // ).p(4).py(4),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     "Model".text.xl.extraBold.make(),
+            //     "AudiR8".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+            //   ],
+            // ).p(4).py(4),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     "Odometer".text.xl.extraBold.make(),
+            //     "1112".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+            //   ],
+            // ).p(4).py(4),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     "Price".text.xl.extraBold.make(),
+            //     "\$2000".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+            //   ],
+            // ).p(4).py(4),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     "Rent".text.xl.extraBold.make(),
+            //     "\$20/day".text.xl.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+            //   ],
+            // ).p(4).py(4),
                     ],
                   ),
                 ],
