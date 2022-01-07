@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +10,7 @@ import 'package:grabcab/screens/mygrabs_screen.dart';
 import 'package:grabcab/screens/signin_screen.dart';
 import 'package:grabcab/services/authentication.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   const Home({ Key? key }) : super(key: key);
@@ -23,6 +26,13 @@ class _HomeState extends State<Home> {
   String _name="";
   String _email="";
   String _pass="";
+
+  getcablist() async{
+    var response = await http.get(Uri.parse("http://grabcabgo.herokuapp.com/Cab/"));
+    var result = jsonDecode(response.body);
+    // print(result);
+    return result;
+  }
 
   profiledialog(BuildContext context){
     Size size = MediaQuery.of(context).size;
@@ -147,6 +157,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    // getcablist();
 
     return Scaffold(
       appBar: AppBar(
@@ -189,42 +200,54 @@ class _HomeState extends State<Home> {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                child: ListView(
-                  children: [
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail()));
-                      },
-                      child: Container(
-                        height: size.height*.35,
-                        decoration: BoxDecoration(
-                          color: Vx.gray300,
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              height: size.height*.28,
-                              width: size.width*.9,
-                              decoration:BoxDecoration(
-                                borderRadius:BorderRadius.all(Radius.circular(10))
-                              ),
-                              child: Hero(tag:"el",child: Image.asset("assets/del.JPG")),
-                            ).px(10),
-                            Divider(color: Colors.black,).px(18),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                "Audi".text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
-                                "\$2000".text.white.xl3.make(),
-                              ],
-                            )
-                          ],
-                        ),
-                      ).px(17),
-                    )
-                  ],
-                ))
+                // child: "hleo".text.make()
+                child: FutureBuilder(
+                  future: getcablist(),
+                  builder: (BuildContext context, snapshot){
+                    if(snapshot.hasData){
+                      var data = snapshot.data;
+                      print(data);
+                      return CircleAvatar();
+                    }
+                  return CircularProgressIndicator().centered();
+                })
+                // child: ListView(
+                //   children: [
+                //     InkWell(
+                //       onTap: (){
+                //         Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail()));
+                //       },
+                //       child: Container(
+                //         height: size.height*.35,
+                //         decoration: BoxDecoration(
+                //           color: Vx.gray300,
+                //           borderRadius: BorderRadius.all(Radius.circular(10))
+                //         ),
+                //         child: Column(
+                //           children: [
+                //             Container(
+                //               height: size.height*.28,
+                //               width: size.width*.9,
+                //               decoration:BoxDecoration(
+                //                 borderRadius:BorderRadius.all(Radius.circular(10))
+                //               ),
+                //               child: Hero(tag:"el",child: Image.asset("assets/del.JPG")),
+                //             ).px(10),
+                //             Divider(color: Colors.black,).px(18),
+                //             Row(
+                //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //               children: [
+                //                 "Audi".text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
+                //                 "\$2000".text.white.xl3.make(),
+                //               ],
+                //             )
+                //           ],
+                //         ),
+                //       ).px(17),
+                //     )
+                //   ],
+                // )
+              )
             ],
           ),
         ),
