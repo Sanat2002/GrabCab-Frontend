@@ -208,65 +208,97 @@ class _HomeState extends State<Home> {
                     if(snapshot.hasData){
 
                       var data = snapshot.data;
-                      
-                      if(data!=null){
-                        // for (var cabs in data) {
-                        //   print(cabs);
-                        // }
-                        var le = [];
-                        le = data as List<dynamic>;
-                        print(le.length);
-                      }
-                      
+      
+                      var ordata = [];
+                      print(ordata.runtimeType);
+                      var unrentcabs = [];
+                      ordata = data as List<dynamic>; // this is done because data is giving null error
+                        
+                      unrentcabs = ordata;
+                      print(unrentcabs[0]['id']);
+                      // for(var cabs in ordata){
+                      //   if(cabs.isrent==false){
+                      //     unrentcabs.add(cabs);
+                      //   }
+                      // }
 
-                      // data.forEach((el){
-
-                      // });
-                      
-                      
-
-
-                      return CircleAvatar();
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: unrentcabs.length,
+                        itemBuilder: (context,index){
+                          return InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],)));
+                            },
+                            child: Container(
+                              height: size.height*.35,
+                              decoration: BoxDecoration(
+                                color: Vx.gray300,
+                                borderRadius: BorderRadius.all(Radius.circular(10))
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: size.height*.28,
+                                    width: size.width*.9,
+                                    decoration:BoxDecoration(
+                                      borderRadius:BorderRadius.all(Radius.circular(10))
+                                    ),
+                                    child: Hero(tag:unrentcabs[index]['modl'],child: Image.asset("assets/${unrentcabs[index]['modl']}.jpg")),
+                                  ).px(10),
+                                  Divider(color: Colors.black,).px(18),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      unrentcabs[index]['brand'].toString().text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
+                                      "\$${unrentcabs[index]['buyrate']}".text.white.xl3.make(),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ).px(17),
+                          );
+                      });
                     }
 
 
                   return CircularProgressIndicator().centered();
                 })
                 // child: ListView(
-                //   children: [
-                //     InkWell(
-                //       onTap: (){
-                //         Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail()));
-                //       },
-                //       child: Container(
-                //         height: size.height*.35,
-                //         decoration: BoxDecoration(
-                //           color: Vx.gray300,
-                //           borderRadius: BorderRadius.all(Radius.circular(10))
-                //         ),
-                //         child: Column(
-                //           children: [
-                //             Container(
-                //               height: size.height*.28,
-                //               width: size.width*.9,
-                //               decoration:BoxDecoration(
-                //                 borderRadius:BorderRadius.all(Radius.circular(10))
-                //               ),
-                //               child: Hero(tag:"el",child: Image.asset("assets/del.JPG")),
-                //             ).px(10),
-                //             Divider(color: Colors.black,).px(18),
-                //             Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //               children: [
-                //                 "Audi".text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
-                //                 "\$2000".text.white.xl3.make(),
-                //               ],
-                //             )
-                //           ],
-                //         ),
-                //       ).px(17),
-                //     )
-                //   ],
+                  // children: [
+                    // InkWell(
+                    //   onTap: (){
+                    //     Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail()));
+                    //   },
+                    //   child: Container(
+                    //     height: size.height*.35,
+                    //     decoration: BoxDecoration(
+                    //       color: Vx.gray300,
+                    //       borderRadius: BorderRadius.all(Radius.circular(10))
+                    //     ),
+                    //     child: Column(
+                    //       children: [
+                    //         Container(
+                    //           height: size.height*.28,
+                    //           width: size.width*.9,
+                    //           decoration:BoxDecoration(
+                    //             borderRadius:BorderRadius.all(Radius.circular(10))
+                    //           ),
+                    //           child: Hero(tag:"el",child: Image.asset("assets/del.JPG")),
+                    //         ).px(10),
+                    //         Divider(color: Colors.black,).px(18),
+                    //         Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //           children: [
+                    //             "Audi".text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
+                    //             "\$2000".text.white.xl3.make(),
+                    //           ],
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ).px(17),
+                    // )
+                  // ],
                 // )
               )
             ],

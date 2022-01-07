@@ -5,7 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CabDetail extends StatefulWidget {
-  const CabDetail({ Key? key }) : super(key: key);
+
+  String cabmodel = "";
+
+  CabDetail({ Key? key,required this.cabmodel }) : super(key: key);
 
   @override
   _CabDetailState createState() => _CabDetailState();
@@ -21,7 +24,7 @@ class _CabDetailState extends State<CabDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Hero(tag:"el",transitionOnUserGestures: true,child: Padding(
+            Hero(tag:widget.cabmodel,transitionOnUserGestures: true,child: Padding(
               padding: EdgeInsets.only(top: 36),
               child: Container(
                 decoration: BoxDecoration(
@@ -30,7 +33,7 @@ class _CabDetailState extends State<CabDetail> {
                 ),
                 height:size.height*.4 ,
                 width: size.width*.9,
-                child: Image.asset("assets/del.JPG")).px(20),
+                child: Image.asset("assets/${widget.cabmodel}.jpg")).px(20),
             )),
             Divider(color: Colors.black).px(12),
             Row(
