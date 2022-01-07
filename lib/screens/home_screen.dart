@@ -29,9 +29,10 @@ class _HomeState extends State<Home> {
 
   getcablist() async{
     var response = await http.get(Uri.parse("http://grabcabgo.herokuapp.com/Cab/"));
-    var result = jsonDecode(response.body);
-    // print(result);
-    return result;
+    if(response.statusCode==200){
+      var result = jsonDecode(response.body);
+      return result;
+    }
   }
 
   profiledialog(BuildContext context){
@@ -203,12 +204,32 @@ class _HomeState extends State<Home> {
                 // child: "hleo".text.make()
                 child: FutureBuilder(
                   future: getcablist(),
-                  builder: (BuildContext context, snapshot){
+                  builder: (context, snapshot){
                     if(snapshot.hasData){
+
                       var data = snapshot.data;
-                      print(data);
+                      
+                      if(data!=null){
+                        // for (var cabs in data) {
+                        //   print(cabs);
+                        // }
+                        var le = [];
+                        le = data as List<dynamic>;
+                        print(le.length);
+                      }
+                      
+
+                      // data.forEach((el){
+
+                      // });
+                      
+                      
+
+
                       return CircleAvatar();
                     }
+
+
                   return CircularProgressIndicator().centered();
                 })
                 // child: ListView(
