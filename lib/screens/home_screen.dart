@@ -58,6 +58,14 @@ class _HomeState extends State<Home> {
     }
   }
 
+  updateprofileapi() async{
+    var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
+    var response = await http.patch(url,body: {'username':_name,'mail':_email,'password':_pass});
+    print(jsonDecode(response.body));
+  }
+
+  // to change email address and password in firebase
+
   profiledialog(BuildContext context){
     Size size = MediaQuery.of(context).size;
 
@@ -75,6 +83,7 @@ class _HomeState extends State<Home> {
                   "Profile".text.xl4.textStyle(TextStyle(fontFamily: GoogleFonts.cardo().fontFamily)).make(),
                   Divider(color: Colors.black,),
                   TextFormField(
+                    initialValue: _name,
                     onChanged: (e){
                       _name = e;
                     },
@@ -103,6 +112,7 @@ class _HomeState extends State<Home> {
                   ),
                   20.heightBox,
                   TextFormField(
+                    initialValue: _email,
                     onChanged: (e){
                       _email = e;
                     },
@@ -131,6 +141,7 @@ class _HomeState extends State<Home> {
                   ),
                   20.heightBox,
                   TextFormField(
+                    initialValue: _pass,
                     onChanged: (e){
                       _pass = e;
                     },
@@ -163,9 +174,9 @@ class _HomeState extends State<Home> {
                       textStyle: MaterialStateProperty.all(TextStyle(fontSize:18)),
                       backgroundColor: MaterialStateProperty.all(Colors.purple.shade300),
                     ),
-                    onPressed: (){
+                    onPressed: () async{
                       if(_formkey.currentState!.validate()){
-
+                        updateprofileapi();
                       }
                     }, 
                     child: "Update".text.textStyle(TextStyle(fontFamily:GoogleFonts.cardo().fontFamily)).make())
@@ -291,7 +302,91 @@ class _HomeState extends State<Home> {
           future: getuserdata(),
           builder: (context,snapshot){
             if(snapshot.hasData){
-              print(snapshot.data);
+              var data = snapshot.data;
+              var user = data as Map<String,dynamic>;
+              _name = user['username'];
+              _email = user['mail'];
+              _pass = user['password'];
+
+              return ListView(
+                  children :[ 
+                    DrawerHeader(
+                    child: UserAccountsDrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Vx.gray300,
+                        borderRadius: BorderRadius.all(Radius.elliptical(20, 40))
+                        ),
+                      currentAccountPicture: CircleAvatar(backgroundColor: Colors.purple.shade200,),
+                      // accountName: userprof['username'].toString().text.black.xl3.make(),
+                      accountName: user['username'].toString().text.black.xl3.make(),
+                      accountEmail: user['mail'].toString().text.black.make(),
+                    )).h(220),
+                    ListTile(
+                      leading: Icon(Icons.person,color:Colors.black),
+                      tileColor: Vx.gray300,
+                      title: Padding(padding: EdgeInsets.only(left: 25),child: "Profile".text.xl.make()),
+                      onTap: (){
+                        profiledialog(context);
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
+                      ),
+                      contentPadding: EdgeInsets.only(left:20),
+                    ).px(15),
+                    10.heightBox,
+                    ListTile(
+                      leading: Icon(Icons.car_rental,color:Colors.black),
+                      tileColor: Vx.gray300,
+                      title: Padding(padding: EdgeInsets.only(left: 25),child: "My Grabs".text.xl.make()),
+                      onTap: (){
+                        Navigator.push(context, PageRouteBuilder(
+                          transitionDuration: Duration(milliseconds: 500),
+                          transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
+                            animation = CurvedAnimation(parent: animation, curve: Curves.easeOutQuad);
+                            return Align(
+                              child: SizeTransition(
+                                sizeFactor: animation,
+                                child:child),
+                            );
+                          },
+                          pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation){
+                          return MyGrabs();
+                        }));
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
+                      ),
+                      contentPadding: EdgeInsets.only(left:20),
+                    ).px(15),
+                    10.heightBox,
+                    ListTile(
+                      leading: Icon(Icons.door_back_door_outlined,color:Colors.black),
+                      tileColor: Vx.gray300,
+                      title: Padding(padding: EdgeInsets.only(left: 25),child: "Sign out".text.xl.make()),
+                      onTap: () async{
+                        await AuthenticationService().signout();
+                        Navigator.pushAndRemoveUntil(context, 
+                        PageRouteBuilder(
+                          transitionDuration: Duration(milliseconds: 300),
+                          transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
+                            return SlideTransition(
+                              position: Tween<Offset>(
+                                begin: Offset(-1, 0),
+                                end: Offset(0, 0)).animate(animation),
+                              child:child,
+                            );
+                          },
+                          pageBuilder: (BuildContext context ,Animation<double> animation,Animation<double> secanimation){
+                            return SignIn();
+                          }), 
+                          (route) => false);
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
+                      ),
+                      contentPadding: EdgeInsets.only(left:20),
+                    ).px(15),
+                  ]);
             }
 
             return CircularProgressIndicator().centered();
