@@ -201,7 +201,6 @@ class _HomeState extends State<Home> {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                // child: "hleo".text.make()
                 child: FutureBuilder(
                   future: getcablist(),
                   builder: (context, snapshot){
@@ -210,17 +209,14 @@ class _HomeState extends State<Home> {
                       var data = snapshot.data;
       
                       var ordata = [];
-                      print(ordata.runtimeType);
                       var unrentcabs = [];
                       ordata = data as List<dynamic>; // this is done because data is giving null error
                         
-                      unrentcabs = ordata;
-                      print(unrentcabs[0]['id']);
-                      // for(var cabs in ordata){
-                      //   if(cabs.isrent==false){
-                      //     unrentcabs.add(cabs);
-                      //   }
-                      // }
+                      for(var cab in ordata){
+                        if(cab['IsAvailable']==true){
+                          unrentcabs.add(cab);
+                        }
+                      }
 
                       return ListView.builder(
                         shrinkWrap: true,
@@ -228,7 +224,7 @@ class _HomeState extends State<Home> {
                         itemBuilder: (context,index){
                           return InkWell(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],cabbrand: unrentcabs[index]['brand'],cabprice: unrentcabs[index]['buyrate'],cabrent: unrentcabs[index]['rentrate'],cabodometer: unrentcabs[index]['odometer'],)));
+                              Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],cabbrand: unrentcabs[index]['brand'],cabprice: unrentcabs[index]['buyrate'],cabrent: unrentcabs[index]['rentrate'],cabodometer: unrentcabs[index]['odometer'],cabid: unrentcabs[index]['id'],)));
                             },
                             child: Container(
                               height: size.height*.35,

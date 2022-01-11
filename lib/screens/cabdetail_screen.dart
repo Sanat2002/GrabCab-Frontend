@@ -1,24 +1,36 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
 class CabDetail extends StatefulWidget {
 
   String cabmodel = "";
   String cabbrand = "";
+  int cabid;
   int cabodometer;
   int cabprice;
   int cabrent;
 
-  CabDetail({ Key? key,required this.cabmodel,required this.cabbrand,required this.cabprice,required this.cabrent,required this.cabodometer}) : super(key: key);
+  CabDetail({ Key? key,required this.cabmodel,required this.cabbrand,required this.cabprice,required this.cabrent,required this.cabodometer,required this.cabid}) : super(key: key);
 
   @override
   _CabDetailState createState() => _CabDetailState();
 }
 
 class _CabDetailState extends State<CabDetail> {
+
+  grabasrent() async{
+    var url = Uri.parse("https://grabcabbackend.herokuapp.com/Cab/");
+    var response = await http.patch(url,body: {'id':widget.cabid,'IsAvailable':false});
+    var result = jsonDecode(response.body);
+    print(result);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -58,7 +70,7 @@ class _CabDetailState extends State<CabDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 "Odometer".text.xl3.extraBold.make(),
-                widget.cabodometer.text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+                "${widget.cabodometer} Km".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
               ],
             ).p(4).py(4),
             Row(
@@ -90,8 +102,8 @@ class _CabDetailState extends State<CabDetail> {
                   style:ButtonStyle(
                     backgroundColor:MaterialStateProperty.all(Colors.purple.shade300),
                   ),
-                  onPressed: (){
-      
+                  onPressed: () async{
+                    
                   },
                   child: "Rent".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make()),
                 ElevatedButton(
