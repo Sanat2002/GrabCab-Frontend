@@ -33,7 +33,6 @@ class _CabDetailState extends State<CabDetail> {
   }
 
   grabasrent() async{
-    print(widget.userid);
     var url = Uri.parse("https://grabcabbackend.herokuapp.com/Cab/${widget.cabid}/");
     var response = await http.patch(url,body: {'Customer':"${widget.userid}"});
     var result = jsonDecode(response.body);

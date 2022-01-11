@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
   String _email="";
   String _pass="";
   late int userid;
+  late var userprof;
 
   @override
   void initState() {
@@ -42,9 +43,11 @@ class _HomeState extends State<Home> {
     for (var user in res) {
       if(user['mail']==_auth.currentUser!.email){
         userid = user['id'];
+        userprof = user;
         break;
       }
     }
+    return userprof;
   }
 
   getcablist() async{
@@ -276,129 +279,102 @@ class _HomeState extends State<Home> {
                       });
                     }
 
-
                   return CircularProgressIndicator().centered();
                 })
-                // child: ListView(
-                  // children: [
-                    // InkWell(
-                    //   onTap: (){
-                    //     Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail()));
-                    //   },
-                    //   child: Container(
-                    //     height: size.height*.35,
-                    //     decoration: BoxDecoration(
-                    //       color: Vx.gray300,
-                    //       borderRadius: BorderRadius.all(Radius.circular(10))
-                    //     ),
-                    //     child: Column(
-                    //       children: [
-                    //         Container(
-                    //           height: size.height*.28,
-                    //           width: size.width*.9,
-                    //           decoration:BoxDecoration(
-                    //             borderRadius:BorderRadius.all(Radius.circular(10))
-                    //           ),
-                    //           child: Hero(tag:"el",child: Image.asset("assets/del.JPG")),
-                    //         ).px(10),
-                    //         Divider(color: Colors.black,).px(18),
-                    //         Row(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //           children: [
-                    //             "Audi".text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
-                    //             "\$2000".text.white.xl3.make(),
-                    //           ],
-                    //         )
-                    //       ],
-                    //     ),
-                    //   ).px(17),
-                    // )
-                  // ],
-                // )
               )
             ],
           ),
         ),
       ),
       drawer: Drawer(
-        child: ListView(
-          children :[ 
-            DrawerHeader(
-            child: UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                color: Vx.gray300,
-                borderRadius: BorderRadius.all(Radius.elliptical(20, 40))
-                ),
-              currentAccountPicture: CircleAvatar(backgroundColor: Colors.purple.shade200,),
-              accountName: "Sanat".text.black.xl3.make(),
-              accountEmail: "sanathakur2002@gamil.com".text.black.make(),
-            )).h(220),
-            ListTile(
-              leading: Icon(Icons.person,color:Colors.black),
-              tileColor: Vx.gray300,
-              title: Padding(padding: EdgeInsets.only(left: 25),child: "Profile".text.xl.make()),
-              onTap: (){
-                profiledialog(context);
-              },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
-              ),
-              contentPadding: EdgeInsets.only(left:20),
-            ).px(15),
-            10.heightBox,
-            ListTile(
-              leading: Icon(Icons.car_rental,color:Colors.black),
-              tileColor: Vx.gray300,
-              title: Padding(padding: EdgeInsets.only(left: 25),child: "My Grabs".text.xl.make()),
-              onTap: (){
-                Navigator.push(context, PageRouteBuilder(
-                  transitionDuration: Duration(milliseconds: 500),
-                  transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
-                    animation = CurvedAnimation(parent: animation, curve: Curves.easeOutQuad);
-                    return Align(
-                      child: SizeTransition(
-                        sizeFactor: animation,
-                        child:child),
-                    );
-                  },
-                  pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation){
-                  return MyGrabs();
-                }));
-              },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
-              ),
-              contentPadding: EdgeInsets.only(left:20),
-            ).px(15),
-            10.heightBox,
-            ListTile(
-              leading: Icon(Icons.door_back_door_outlined,color:Colors.black),
-              tileColor: Vx.gray300,
-              title: Padding(padding: EdgeInsets.only(left: 25),child: "Sign out".text.xl.make()),
-              onTap: () async{
-                await AuthenticationService().signout();
-                Navigator.pushAndRemoveUntil(context, 
-                PageRouteBuilder(
-                  transitionDuration: Duration(milliseconds: 300),
-                  transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
-                    return SlideTransition(
-                      position: Tween<Offset>(
-                        begin: Offset(-1, 0),
-                        end: Offset(0, 0)).animate(animation),
-                      child:child,
-                    );
-                  },
-                  pageBuilder: (BuildContext context ,Animation<double> animation,Animation<double> secanimation){
-                    return SignIn();
-                  }), 
-                  (route) => false);
-              },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
-              ),
-              contentPadding: EdgeInsets.only(left:20),
-            ).px(15),
-          ]),
+        child: FutureBuilder(
+          future: getuserdata(),
+          builder: (context,snapshot){
+            if(snapshot.hasData){
+              print(snapshot.data);
+            }
+
+            return CircularProgressIndicator().centered();
+          }),
+        // child: ListView(
+        //   children :[ 
+        //     DrawerHeader(
+        //     child: UserAccountsDrawerHeader(
+        //       decoration: BoxDecoration(
+        //         color: Vx.gray300,
+        //         borderRadius: BorderRadius.all(Radius.elliptical(20, 40))
+        //         ),
+        //       currentAccountPicture: CircleAvatar(backgroundColor: Colors.purple.shade200,),
+        //       // accountName: userprof['username'].toString().text.black.xl3.make(),
+        //       accountName: "ls".text.black.xl3.make(),
+        //       accountEmail: "sanathakur2002@gamil.com".text.black.make(),
+        //     )).h(220),
+        //     ListTile(
+        //       leading: Icon(Icons.person,color:Colors.black),
+        //       tileColor: Vx.gray300,
+        //       title: Padding(padding: EdgeInsets.only(left: 25),child: "Profile".text.xl.make()),
+        //       onTap: (){
+        //         profiledialog(context);
+        //       },
+        //       shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
+        //       ),
+        //       contentPadding: EdgeInsets.only(left:20),
+        //     ).px(15),
+        //     10.heightBox,
+        //     ListTile(
+        //       leading: Icon(Icons.car_rental,color:Colors.black),
+        //       tileColor: Vx.gray300,
+        //       title: Padding(padding: EdgeInsets.only(left: 25),child: "My Grabs".text.xl.make()),
+        //       onTap: (){
+        //         Navigator.push(context, PageRouteBuilder(
+        //           transitionDuration: Duration(milliseconds: 500),
+        //           transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
+        //             animation = CurvedAnimation(parent: animation, curve: Curves.easeOutQuad);
+        //             return Align(
+        //               child: SizeTransition(
+        //                 sizeFactor: animation,
+        //                 child:child),
+        //             );
+        //           },
+        //           pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation){
+        //           return MyGrabs();
+        //         }));
+        //       },
+        //       shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
+        //       ),
+        //       contentPadding: EdgeInsets.only(left:20),
+        //     ).px(15),
+        //     10.heightBox,
+        //     ListTile(
+        //       leading: Icon(Icons.door_back_door_outlined,color:Colors.black),
+        //       tileColor: Vx.gray300,
+        //       title: Padding(padding: EdgeInsets.only(left: 25),child: "Sign out".text.xl.make()),
+        //       onTap: () async{
+        //         await AuthenticationService().signout();
+        //         Navigator.pushAndRemoveUntil(context, 
+        //         PageRouteBuilder(
+        //           transitionDuration: Duration(milliseconds: 300),
+        //           transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
+        //             return SlideTransition(
+        //               position: Tween<Offset>(
+        //                 begin: Offset(-1, 0),
+        //                 end: Offset(0, 0)).animate(animation),
+        //               child:child,
+        //             );
+        //           },
+        //           pageBuilder: (BuildContext context ,Animation<double> animation,Animation<double> secanimation){
+        //             return SignIn();
+        //           }), 
+        //           (route) => false);
+        //       },
+        //       shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
+        //       ),
+        //       contentPadding: EdgeInsets.only(left:20),
+        //     ).px(15),
+        //   ]),
       ),
     );
   }
