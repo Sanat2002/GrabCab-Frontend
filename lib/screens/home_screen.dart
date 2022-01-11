@@ -228,7 +228,7 @@ class _HomeState extends State<Home> {
                         itemBuilder: (context,index){
                           return InkWell(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],)));
+                              Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],cabbrand: unrentcabs[index]['brand'],cabprice: unrentcabs[index]['buyrate'],cabrent: unrentcabs[index]['rentrate'],)));
                             },
                             child: Container(
                               height: size.height*.35,

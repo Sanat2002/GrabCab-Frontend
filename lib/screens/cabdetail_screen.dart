@@ -7,8 +7,12 @@ import 'package:velocity_x/velocity_x.dart';
 class CabDetail extends StatefulWidget {
 
   String cabmodel = "";
+  String cabbrand = "";
+  // String cabodometer = "";
+  String cabprice = "";
+  String cabrent = "";
 
-  CabDetail({ Key? key,required this.cabmodel }) : super(key: key);
+  CabDetail({ Key? key,required this.cabmodel,required this.cabbrand,required this.cabprice,required this.cabrent}) : super(key: key);
 
   @override
   _CabDetailState createState() => _CabDetailState();
