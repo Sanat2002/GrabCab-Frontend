@@ -228,7 +228,7 @@ class _HomeState extends State<Home> {
                         itemBuilder: (context,index){
                           return InkWell(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],cabbrand: unrentcabs[index]['brand'],cabprice: unrentcabs[index]['buyrate'],cabrent: unrentcabs[index]['rentrate'],)));
+                              Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],cabbrand: unrentcabs[index]['brand'],cabprice: unrentcabs[index]['buyrate'],cabrent: unrentcabs[index]['rentrate'],cabodometer: unrentcabs[index]['odometer'],)));
                             },
                             child: Container(
                               height: size.height*.35,
@@ -257,7 +257,7 @@ class _HomeState extends State<Home> {
                                 ],
                               ),
                             ).px(17),
-                          );
+                          ).py(5);
                       });
                     }
 

@@ -8,11 +8,11 @@ class CabDetail extends StatefulWidget {
 
   String cabmodel = "";
   String cabbrand = "";
-  // String cabodometer = "";
-  String cabprice = "";
-  String cabrent = "";
+  int cabodometer;
+  int cabprice;
+  int cabrent;
 
-  CabDetail({ Key? key,required this.cabmodel,required this.cabbrand,required this.cabprice,required this.cabrent}) : super(key: key);
+  CabDetail({ Key? key,required this.cabmodel,required this.cabbrand,required this.cabprice,required this.cabrent,required this.cabodometer}) : super(key: key);
 
   @override
   _CabDetailState createState() => _CabDetailState();
@@ -44,42 +44,35 @@ class _CabDetailState extends State<CabDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 "Brand".text.xl3.extraBold.make(),
-                "Audi".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+                widget.cabbrand.text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
               ],
             ).p(4).py(4),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 "Model".text.xl3.extraBold.make(),
-                "AudiR8".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+                widget.cabmodel.text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
               ],
             ).p(4).py(4),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 "Odometer".text.xl3.extraBold.make(),
-                "1112".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+                widget.cabodometer.text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
               ],
             ).p(4).py(4),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 "Price".text.xl3.extraBold.make(),
-                "\$2000".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
+                "\$${widget.cabprice}".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
               ],
             ).p(4).py(4),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 "Rent".text.xl3.extraBold.make(),
-                "\$20/day".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
-              ],
-            ).p(4).py(4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                "Quantity".text.xl3.extraBold.make(),
-                "3".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make().px(17)
+                "\$${widget.cabrent}/day".text.xl3.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).green600.make()
               ],
             ).p(4).py(4),
           ],
