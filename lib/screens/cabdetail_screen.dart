@@ -12,11 +12,12 @@ class CabDetail extends StatefulWidget {
   String cabmodel = "";
   String cabbrand = "";
   int cabid;
+  int userid;
   int cabodometer;
   int cabprice;
   int cabrent;
 
-  CabDetail({ Key? key,required this.cabmodel,required this.cabbrand,required this.cabprice,required this.cabrent,required this.cabodometer,required this.cabid}) : super(key: key);
+  CabDetail({ Key? key,required this.cabmodel,required this.cabbrand,required this.cabprice,required this.cabrent,required this.cabodometer,required this.cabid,required this.userid}) : super(key: key);
 
   @override
   _CabDetailState createState() => _CabDetailState();
@@ -24,12 +25,21 @@ class CabDetail extends StatefulWidget {
 
 class _CabDetailState extends State<CabDetail> {
 
-  grabasrent() async{
-    var url = Uri.parse("https://grabcabbackend.herokuapp.com/Cab/");
-    var response = await http.patch(url,body: {'id':widget.cabid,'IsAvailable':false});
+  makeunavailable() async{
+    var url = Uri.parse("https://grabcabbackend.herokuapp.com/Cab/${widget.cabid}/");
+    var response = await http.patch(url,body: {'buyrate':"229"});
     var result = jsonDecode(response.body);
     print(result);
   }
+
+  grabasrent() async{
+    print(widget.userid);
+    var url = Uri.parse("https://grabcabbackend.herokuapp.com/Cab/${widget.cabid}/");
+    var response = await http.patch(url,body: {'Customer':"${widget.userid}"});
+    var result = jsonDecode(response.body);
+    print(result);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +113,7 @@ class _CabDetailState extends State<CabDetail> {
                     backgroundColor:MaterialStateProperty.all(Colors.purple.shade300),
                   ),
                   onPressed: () async{
-                    
+                    grabasrent();
                   },
                   child: "Rent".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make()),
                 ElevatedButton(
