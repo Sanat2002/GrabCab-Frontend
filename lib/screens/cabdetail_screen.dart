@@ -106,8 +106,10 @@ class _CabDetailState extends State<CabDetail> {
                     backgroundColor:MaterialStateProperty.all(Colors.purple.shade300),
                   ),
                   onPressed: () async{
-                   await grabasrent();
-                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()), (route) => false);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "Processing...".text.red400.make()));
+                    await grabasrent();
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "${widget.cabmodel} is successfully taken as rent.".text.red400.make()));
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()), (route) => false);
                   },
                   child: "Rent".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make()),
                 ElevatedButton(
