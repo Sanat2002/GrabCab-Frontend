@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
+import 'package:http/http.dart' as http;
 
 class SignUp extends StatefulWidget {
   const SignUp({ Key? key }) : super(key: key);
@@ -31,6 +34,12 @@ class _SignUpState extends State<SignUp> {
   final _namecontroller = TextEditingController();
   final _emailcontroller = TextEditingController();
   final _passcontroller = TextEditingController();
+
+  registeruser() async{
+    var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/");
+    var response = await http.post(url,body: {'username':_namecontroller.text,'mail':_emailcontroller.text,'password':_passcontroller.text});
+    print(jsonDecode(response.body));
+  }
 
   infunct(){
     timer = Timer.periodic(Duration(seconds: 3), (timer) { 
@@ -276,6 +285,7 @@ class _SignUpState extends State<SignUp> {
                             var res = await AuthenticationService().signupemail(_emailcontroller.text, _passcontroller.text);
 
                             if(res=="Success"){
+                              registeruser();
                               setState(() {
                                 _isloading = false;
                               });
