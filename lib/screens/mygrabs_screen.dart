@@ -65,12 +65,14 @@ class _MyGrabsState extends State<MyGrabs> {
           splashRadius: 1,
           onPressed: (){
             Navigator.pushReplacement(context, PageRouteBuilder(
-              transitionDuration: Duration(milliseconds: 300),
+              transitionDuration: Duration(milliseconds: 500),
               transitionsBuilder: (BuildContext context , Animation<double> animation , Animation<double> seanimation, Widget child){
-                animation = CurvedAnimation(parent: animation, curve: Curves.easeIn);
-                return SizeTransition(
-                  sizeFactor: animation,
-                  child: child,
+                animation = CurvedAnimation(parent: animation, curve: Curves.easeInCirc);
+                return Align(
+                  child: SizeTransition(
+                    sizeFactor: animation,
+                    child: child,
+                  ),
                 );
               },
               pageBuilder:(BuildContext context, Animation<double> animation, Animation<double> seanimation){

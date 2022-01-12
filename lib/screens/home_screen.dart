@@ -323,7 +323,7 @@ class _HomeState extends State<Home> {
                       });
                     }
 
-                  return CircularProgressIndicator().centered();
+                  return CircularProgressIndicator(color: Colors.purple.shade300,).py(100).centered();
                 })
               )
             ],
@@ -425,7 +425,7 @@ class _HomeState extends State<Home> {
                   ]);
             }
 
-            return CircularProgressIndicator().centered();
+            return CircularProgressIndicator(color: Colors.purple.shade300).centered();
           }),
         // child: ListView(
         //   children :[ 
