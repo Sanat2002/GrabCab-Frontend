@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grabcab/screens/home_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 
@@ -105,7 +106,8 @@ class _CabDetailState extends State<CabDetail> {
                     backgroundColor:MaterialStateProperty.all(Colors.purple.shade300),
                   ),
                   onPressed: () async{
-                    grabasrent();
+                   await grabasrent();
+                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()), (route) => false);
                   },
                   child: "Rent".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make()),
                 ElevatedButton(
