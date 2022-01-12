@@ -108,7 +108,7 @@ class _CabDetailState extends State<CabDetail> {
                   onPressed: () async{
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "Processing...".text.red400.make()));
                     await grabasrent();
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "${widget.cabmodel} is successfully taken as rent.".text.red400.make()));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "${widget.cabmodel} is successfully taken on rent.".text.red400.make()));
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Home()), (route) => false);
                   },
                   child: "Rent".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make()),

@@ -78,11 +78,11 @@ class _MyGrabsState extends State<MyGrabs> {
                       if(snapshot.hasData){
                         var data = snapshot.data;
                         var orgdata = data as Map<String,dynamic>;
-                        print(orgdata['RentedCab'][0].runtimeType);
+                        // print(orgdata['RentedCab'][0].runtimeType);
                         var rentcabs = orgdata['RentedCab'] as List;
-                        print(rentcabs);
+                        // print(rentcabs);
 
-                        return ListView.builder(
+                        return rentcabs.isEmpty? "You don't have any rented cabs!!!".text.xl2.make().centered().py(300) : ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: rentcabs.length,
@@ -133,7 +133,7 @@ class _MyGrabsState extends State<MyGrabs> {
                         }); 
 
                       }
-                      return CircularProgressIndicator().centered();
+                      return CircularProgressIndicator(color: Colors.purple.shade300,).centered().py(300);
                     })
                   // ExpansionTile(
                   //   leading: Image.asset("assets/nexon.jpg",width: 57,),
