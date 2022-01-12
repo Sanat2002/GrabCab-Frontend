@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
   updateprofileapi() async{
     print(_email2);
     print(_pass2);
-    // await AuthenticationService().updateemail(_email);
+    await AuthenticationService().updateemail(_email2);
     await AuthenticationService().updatepass(_pass2);
     var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
     var response = await http.patch(url,body: {'username':_name2,'mail':_email2,'password':_pass2});

@@ -34,6 +34,24 @@ class _MyGrabsState extends State<MyGrabs> {
     return userprof;
   }
 
+  returncab(modl) async{
+    var cabid;
+    var response = await http.get(Uri.parse("https://grabcabbackend.herokuapp.com/Cab/"));
+    var res = jsonDecode(response.body);
+    print(res);
+    for (var cabs in res) {
+      if(cabs['modl']==modl){
+        cabid = cabs['id'];
+        break;
+      }
+    }
+    print(cabid);
+    var url = Uri.parse("https://grabcabbackend.herokuapp.com/Cab/$cabid/");
+    var resp = await http.patch(url,body: {'Customer':"1",'IsAvailable':"true"});
+    print(jsonDecode(resp.body));
+
+  }
+
   @override
   Widget build(BuildContext context) {
   Size size = MediaQuery.of(context).size;
@@ -46,7 +64,8 @@ class _MyGrabsState extends State<MyGrabs> {
       body:Column(
         children: [
           SizedBox(
-            height: size.height*.44,
+            // height: size.height*.44,
+            height: size.height*.9,
             child:SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,8 +115,12 @@ class _MyGrabsState extends State<MyGrabs> {
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       TextButton(
-                                        onPressed: (){
-
+                                        onPressed: () async{
+                                          await returncab(rentcabs[index]);
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "${rentcabs[index]} Successfully returned!!!".text.red400.make()));
+                                          setState(() {
+                                            
+                                          });
                                         }, 
                                         child: "Return".text.red800.xl.make())
                                     ],
