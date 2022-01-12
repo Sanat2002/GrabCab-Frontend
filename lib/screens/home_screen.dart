@@ -32,6 +32,7 @@ class _HomeState extends State<Home> {
   String _name2="";
   String _email2="";
   String _pass2="";
+  var change = false;
   late int userid;
   late var userprof;
   var unrentcabs2 = [];
@@ -90,120 +91,128 @@ class _HomeState extends State<Home> {
     showDialog(
       context: context, 
       builder: (context){
-        return AlertDialog(
-          content: SizedBox(
-            height: size.height*.467,
-            width: size.width,
-            child: Form(
-              key:_formkey,
-              child: Column(
-                children: [
-                  "Profile".text.xl4.textStyle(TextStyle(fontFamily: GoogleFonts.cardo().fontFamily)).make(),
-                  Divider(color: Colors.black,),
-                  TextFormField(
-                    initialValue: _name,
-                    onChanged: (e){
-                      _name2 = e;
-                    },
-                    validator: (value){
-                      if(value!.isEmpty){
-                        return "Enter name";
-                      }
-                      return null;
-                    },
-                    cursorColor: Colors.purple.shade300,
-                    cursorHeight: 23,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: GoogleFonts.cardo().fontFamily,
-                      fontSize: 18
-                    ),
-                    decoration: InputDecoration(
-                      hintText: "Enter name",
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.purple.shade300)
+        return StatefulBuilder(
+          builder: (context,setState){
+            return AlertDialog(
+            content: SizedBox(
+              height: size.height*.467,
+              width: size.width,
+              child: Form(
+                key:_formkey,
+                child: Column(
+                  children: [
+                    "Profile".text.xl4.textStyle(TextStyle(fontFamily: GoogleFonts.cardo().fontFamily)).make(),
+                    Divider(color: Colors.black,),
+                    TextFormField(
+                      initialValue: _name,
+                      onChanged: (e){
+                        _name2 = e;
+                      },
+                      validator: (value){
+                        if(value!.isEmpty){
+                          return "Enter name";
+                        }
+                        return null;
+                      },
+                      cursorColor: Colors.purple.shade300,
+                      cursorHeight: 23,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: GoogleFonts.cardo().fontFamily,
+                        fontSize: 18
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.purple.shade300)
-                      ),
-                    ),
-                  ),
-                  20.heightBox,
-                  TextFormField(
-                    initialValue: _email,
-                    onChanged: (e){
-                      _email2 = e;
-                    },
-                    validator: (value){
-                      if(!EmailValidator.validate(value!)){
-                        return "Enter valid email";
-                      }
-                      return null;
-                    },
-                    cursorColor: Colors.purple.shade300,
-                    cursorHeight: 23,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: GoogleFonts.cardo().fontFamily,
-                      fontSize: 18
-                    ),
-                    decoration: InputDecoration(
-                      hintText: "Enter email address",
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.purple.shade300)
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.purple.shade300)
+                      decoration: InputDecoration(
+                        hintText: "Enter name",
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple.shade300)
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple.shade300)
+                        ),
                       ),
                     ),
-                  ),
-                  20.heightBox,
-                  TextFormField(
-                    initialValue: _pass,
-                    onChanged: (e){
-                      _pass2 = e;
-                    },
-                    validator: (value){
-                      if(value!.length<6){
-                        return "Length should be greater than 6";
-                      }
-                      return null;
-                    },
-                    cursorColor: Colors.purple.shade300,
-                    cursorHeight: 23,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: GoogleFonts.cardo().fontFamily,
-                      fontSize: 18
-                    ),
-                    decoration: InputDecoration(
-                      hintText: "Enter password",
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.purple.shade300)
+                    20.heightBox,
+                    TextFormField(
+                      initialValue: _email,
+                      onChanged: (e){
+                        _email2 = e;
+                      },
+                      validator: (value){
+                        if(!EmailValidator.validate(value!)){
+                          return "Enter valid email";
+                        }
+                        return null;
+                      },
+                      cursorColor: Colors.purple.shade300,
+                      cursorHeight: 23,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: GoogleFonts.cardo().fontFamily,
+                        fontSize: 18
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.purple.shade300)
+                      decoration: InputDecoration(
+                        hintText: "Enter email address",
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple.shade300)
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple.shade300)
+                        ),
                       ),
                     ),
-                  ),
-                  40.heightBox,
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      textStyle: MaterialStateProperty.all(TextStyle(fontSize:18)),
-                      backgroundColor: MaterialStateProperty.all(Colors.purple.shade300),
+                    20.heightBox,
+                    TextFormField(
+                      initialValue: _pass,
+                      onChanged: (e){
+                        _pass2 = e;
+                      },
+                      validator: (value){
+                        if(value!.length<6){
+                          return "Length should be greater than 6";
+                        }
+                        return null;
+                      },
+                      cursorColor: Colors.purple.shade300,
+                      cursorHeight: 23,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: GoogleFonts.cardo().fontFamily,
+                        fontSize: 18
+                      ),
+                      decoration: InputDecoration(
+                        hintText: "Enter password",
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple.shade300)
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple.shade300)
+                        ),
+                      ),
                     ),
-                    onPressed: () async{
-                      if(_formkey.currentState!.validate()){
-                        updateprofileapi();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "Profile Updated!!!".text.red400.make()));
-                      }
-                    }, 
-                    child: "Update".text.textStyle(TextStyle(fontFamily:GoogleFonts.cardo().fontFamily)).make())
-                ],
+                    40.heightBox,
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        textStyle: MaterialStateProperty.all(TextStyle(fontSize:18)),
+                        backgroundColor: MaterialStateProperty.all(Colors.purple.shade300),
+                      ),
+                      onPressed: () async{
+                        if(_formkey.currentState!.validate()){
+                          setState((){
+                            change = true;
+                          });
+                          await updateprofileapi();
+                          setState((){
+                            change = false;
+                          });
+                        }
+                      }, 
+                      child: change? "updating...".text.make() : "Update".text.textStyle(TextStyle(fontFamily:GoogleFonts.cardo().fontFamily)).make())
+                  ],
+                ),
               ),
             ),
-          ),
-        );
+          );
+        });
       });
   }
 
@@ -312,43 +321,6 @@ class _HomeState extends State<Home> {
                             ).py(5);
                         });
                       });
-                      // return ListView.builder(
-                      //   shrinkWrap: true,
-                      //   itemCount: unrentcabs.length,
-                      //   itemBuilder: (context,index){
-                      //     return InkWell(
-                      //       onTap: (){
-                      //         Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],cabbrand: unrentcabs[index]['brand'],cabprice: unrentcabs[index]['buyrate'],cabrent: unrentcabs[index]['rentrate'],cabodometer: unrentcabs[index]['odometer'],cabid: unrentcabs[index]['id'],userid: userid,)));
-                      //       },
-                      //       child: Container(
-                      //         height: size.height*.35,
-                      //         decoration: BoxDecoration(
-                      //           color: Vx.gray300,
-                      //           borderRadius: BorderRadius.all(Radius.circular(10))
-                      //         ),
-                      //         child: Column(
-                      //           children: [
-                      //             Container(
-                      //               height: size.height*.28,
-                      //               width: size.width*.9,
-                      //               decoration:BoxDecoration(
-                      //                 borderRadius:BorderRadius.all(Radius.circular(10))
-                      //               ),
-                      //               child: Hero(tag:unrentcabs[index]['modl'],child: Image.asset("assets/${unrentcabs[index]['modl']}.jpg")),
-                      //             ).px(10),
-                      //             Divider(color: Colors.black,).px(18),
-                      //             Row(
-                      //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      //               children: [
-                      //                 unrentcabs[index]['modl'].toString().text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
-                      //                 "\$${unrentcabs[index]['rentrate']}".text.white.xl3.make(),
-                      //               ],
-                      //             )
-                      //           ],
-                      //         ),
-                      //       ).px(17),
-                      //     ).py(5);
-                      // });
                     }
 
                   return CircularProgressIndicator().centered();
