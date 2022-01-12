@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grabcab/screens/home_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,6 +61,14 @@ class _MyGrabsState extends State<MyGrabs> {
       appBar: AppBar(
         backgroundColor: Colors.purple.shade400,
         title: "My Grabs".text.xl3.make().px(70),
+        leading: IconButton(
+          splashRadius: 1,
+          onPressed: (){
+            Navigator.pushReplacement(context, PageRouteBuilder(
+              pageBuilder:(BuildContext context, Animation<double> animation, Animation<double> seanimation){
+                return Home();
+              } ));
+          }, icon: Icon(Icons.home)),
       ),
       body:Column(
         children: [

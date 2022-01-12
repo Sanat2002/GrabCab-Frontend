@@ -35,11 +35,21 @@ class _HomeState extends State<Home> {
   late int userid;
   late var userprof;
   var unrentcabs2 = [];
+  var serentcabs = [];
 
   @override
   void initState() {
     getuserdata();
     super.initState();
+  }
+
+  getsearchcabs(scabsname){
+    serentcabs = [];
+    for(var cabs in unrentcabs2){
+      if(cabs['modl'].contains(scabsname)){
+        serentcabs.add(cabs);
+      }
+    }
   }
 
   getuserdata() async{
@@ -201,14 +211,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    getsearchcabs(scabsname){
-      for(var cabs in unrentcabs2){
-        if(cabs['modl'].contains(scabsname)){
-          unrentcabs2.add(cabs);
-        }
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple.shade400,
@@ -232,7 +234,7 @@ class _HomeState extends State<Home> {
                     fontSize: 18,
                   ),
                   onChanged: (value){
-                    
+                    getsearchcabs(value);
                     searchcabname.value = value;
                   },
                   decoration: InputDecoration(
@@ -260,7 +262,6 @@ class _HomeState extends State<Home> {
       
                       var ordata = [];
                       var unrentcabs = [];
-                      var serentcabs = [];
                       ordata = data as List<dynamic>; // this is done because data is giving null error
                         
                       for(var cab in ordata){
@@ -270,43 +271,84 @@ class _HomeState extends State<Home> {
                       }
                       unrentcabs2 = unrentcabs;
 
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: unrentcabs.length,
-                        itemBuilder: (context,index){
-                          return InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],cabbrand: unrentcabs[index]['brand'],cabprice: unrentcabs[index]['buyrate'],cabrent: unrentcabs[index]['rentrate'],cabodometer: unrentcabs[index]['odometer'],cabid: unrentcabs[index]['id'],userid: userid,)));
-                            },
-                            child: Container(
-                              height: size.height*.35,
-                              decoration: BoxDecoration(
-                                color: Vx.gray300,
-                                borderRadius: BorderRadius.all(Radius.circular(10))
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: size.height*.28,
-                                    width: size.width*.9,
-                                    decoration:BoxDecoration(
-                                      borderRadius:BorderRadius.all(Radius.circular(10))
-                                    ),
-                                    child: Hero(tag:unrentcabs[index]['modl'],child: Image.asset("assets/${unrentcabs[index]['modl']}.jpg")),
-                                  ).px(10),
-                                  Divider(color: Colors.black,).px(18),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      unrentcabs[index]['modl'].toString().text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
-                                      "\$${unrentcabs[index]['rentrate']}".text.white.xl3.make(),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ).px(17),
-                          ).py(5);
+                      return ValueListenableBuilder(
+                        valueListenable: searchcabname,
+                        builder: (BuildContext context,String value,Widget?child){
+                          return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: value.isNotEmpty?serentcabs.length : unrentcabs.length,
+                          itemBuilder: (context,index){
+                            return InkWell(
+                              onTap: (){
+                                value.isNotEmpty? Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: serentcabs[index]['modl'],cabbrand: serentcabs[index]['brand'],cabprice: serentcabs[index]['buyrate'],cabrent: serentcabs[index]['rentrate'],cabodometer: serentcabs[index]['odometer'],cabid: serentcabs[index]['id'],userid: userid,))) : Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],cabbrand: unrentcabs[index]['brand'],cabprice: unrentcabs[index]['buyrate'],cabrent: unrentcabs[index]['rentrate'],cabodometer: unrentcabs[index]['odometer'],cabid: unrentcabs[index]['id'],userid: userid,)));
+                              },
+                              child: Container(
+                                height: size.height*.35,
+                                decoration: BoxDecoration(
+                                  color: Vx.gray300,
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: size.height*.28,
+                                      width: size.width*.9,
+                                      decoration:BoxDecoration(
+                                        borderRadius:BorderRadius.all(Radius.circular(10))
+                                      ),
+                                      child: Hero(tag:value.isNotEmpty? serentcabs[index]['modl'] : unrentcabs[index]['modl'],child: value.isNotEmpty? Image.asset("assets/${serentcabs[index]['modl']}.jpg") :Image.asset("assets/${unrentcabs[index]['modl']}.jpg")),
+                                    ).px(10),
+                                    Divider(color: Colors.black,).px(18),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        value.isNotEmpty? serentcabs[index]['modl'].toString().text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make() : unrentcabs[index]['modl'].toString().text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
+                                        value.isNotEmpty? "\$${serentcabs[index]['rentrate']}".text.white.xl3.make() : "\$${unrentcabs[index]['rentrate']}".text.white.xl3.make(),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ).px(17),
+                            ).py(5);
+                        });
                       });
+                      // return ListView.builder(
+                      //   shrinkWrap: true,
+                      //   itemCount: unrentcabs.length,
+                      //   itemBuilder: (context,index){
+                      //     return InkWell(
+                      //       onTap: (){
+                      //         Navigator.push(context, MaterialPageRoute(builder:  (context)=>CabDetail(cabmodel: unrentcabs[index]['modl'],cabbrand: unrentcabs[index]['brand'],cabprice: unrentcabs[index]['buyrate'],cabrent: unrentcabs[index]['rentrate'],cabodometer: unrentcabs[index]['odometer'],cabid: unrentcabs[index]['id'],userid: userid,)));
+                      //       },
+                      //       child: Container(
+                      //         height: size.height*.35,
+                      //         decoration: BoxDecoration(
+                      //           color: Vx.gray300,
+                      //           borderRadius: BorderRadius.all(Radius.circular(10))
+                      //         ),
+                      //         child: Column(
+                      //           children: [
+                      //             Container(
+                      //               height: size.height*.28,
+                      //               width: size.width*.9,
+                      //               decoration:BoxDecoration(
+                      //                 borderRadius:BorderRadius.all(Radius.circular(10))
+                      //               ),
+                      //               child: Hero(tag:unrentcabs[index]['modl'],child: Image.asset("assets/${unrentcabs[index]['modl']}.jpg")),
+                      //             ).px(10),
+                      //             Divider(color: Colors.black,).px(18),
+                      //             Row(
+                      //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //               children: [
+                      //                 unrentcabs[index]['modl'].toString().text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
+                      //                 "\$${unrentcabs[index]['rentrate']}".text.white.xl3.make(),
+                      //               ],
+                      //             )
+                      //           ],
+                      //         ),
+                      //       ).px(17),
+                      //     ).py(5);
+                      // });
                     }
 
                   return CircularProgressIndicator().centered();
@@ -340,7 +382,6 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.all(Radius.elliptical(20, 40))
                         ),
                       currentAccountPicture: CircleAvatar(backgroundColor: Colors.purple.shade200,),
-                      // accountName: userprof['username'].toString().text.black.xl3.make(),
                       accountName: user['username'].toString().text.black.xl3.make(),
                       accountEmail: user['mail'].toString().text.black.make(),
                     )).h(220),
@@ -362,7 +403,7 @@ class _HomeState extends State<Home> {
                       tileColor: Vx.gray300,
                       title: Padding(padding: EdgeInsets.only(left: 25),child: "My Grabs".text.xl.make()),
                       onTap: (){
-                        Navigator.push(context, PageRouteBuilder(
+                        Navigator.pushAndRemoveUntil(context,  PageRouteBuilder(
                           transitionDuration: Duration(milliseconds: 500),
                           transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
                             animation = CurvedAnimation(parent: animation, curve: Curves.easeOutQuad);
@@ -374,7 +415,7 @@ class _HomeState extends State<Home> {
                           },
                           pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation){
                           return MyGrabs();
-                        }));
+                        }), (route) => false);
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
