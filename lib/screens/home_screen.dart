@@ -191,7 +191,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // getcablist();
 
     return Scaffold(
       appBar: AppBar(

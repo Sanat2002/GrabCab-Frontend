@@ -120,7 +120,7 @@ class _CabDetailState extends State<CabDetail> {
                     backgroundColor:MaterialStateProperty.all(Colors.purple.shade600)
                   ),
                   onPressed: (){
-      
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "Currently not allowed!!!".text.red400.make()));
                   },
                   child: "Buy".text.textStyle(TextStyle(fontFamily: GoogleFonts.davidLibre().fontFamily)).xl3.make())
               ],
