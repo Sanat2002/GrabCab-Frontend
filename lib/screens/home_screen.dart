@@ -28,6 +28,9 @@ class _HomeState extends State<Home> {
   String _name="";
   String _email="";
   String _pass="";
+  String _name2="";
+  String _email2="";
+  String _pass2="";
   late int userid;
   late var userprof;
 
@@ -59,12 +62,15 @@ class _HomeState extends State<Home> {
   }
 
   updateprofileapi() async{
+    print(_email2);
+    print(_pass2);
+    // await AuthenticationService().updateemail(_email);
+    await AuthenticationService().updatepass(_pass2);
     var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
-    var response = await http.patch(url,body: {'username':_name,'mail':_email,'password':_pass});
+    var response = await http.patch(url,body: {'username':_name2,'mail':_email2,'password':_pass2});
     print(jsonDecode(response.body));
   }
 
-  // to change email address and password in firebase
 
   profiledialog(BuildContext context){
     Size size = MediaQuery.of(context).size;
@@ -85,7 +91,7 @@ class _HomeState extends State<Home> {
                   TextFormField(
                     initialValue: _name,
                     onChanged: (e){
-                      _name = e;
+                      _name2 = e;
                     },
                     validator: (value){
                       if(value!.isEmpty){
@@ -114,7 +120,7 @@ class _HomeState extends State<Home> {
                   TextFormField(
                     initialValue: _email,
                     onChanged: (e){
-                      _email = e;
+                      _email2 = e;
                     },
                     validator: (value){
                       if(!EmailValidator.validate(value!)){
@@ -143,7 +149,7 @@ class _HomeState extends State<Home> {
                   TextFormField(
                     initialValue: _pass,
                     onChanged: (e){
-                      _pass = e;
+                      _pass2 = e;
                     },
                     validator: (value){
                       if(value!.length<6){
@@ -177,6 +183,7 @@ class _HomeState extends State<Home> {
                     onPressed: () async{
                       if(_formkey.currentState!.validate()){
                         updateprofileapi();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "Profile Updated!!!".text.red400.make()));
                       }
                     }, 
                     child: "Update".text.textStyle(TextStyle(fontFamily:GoogleFonts.cardo().fontFamily)).make())
@@ -306,6 +313,10 @@ class _HomeState extends State<Home> {
               _name = user['username'];
               _email = user['mail'];
               _pass = user['password'];
+
+              _name2 = _name;
+              _email2 = _email;
+              _pass2 = _pass;
 
               return ListView(
                   children :[ 

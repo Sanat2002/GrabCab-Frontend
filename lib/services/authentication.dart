@@ -34,6 +34,30 @@ class AuthenticationService {
     }
   }
 
+  Future<String> updateemail(newemail) async{
+    try{
+      await _auth.currentUser!.updateEmail(newemail);
+      return "Success";
+    } on FirebaseAuthException catch(e){
+      if(e.code=="requires-recent-login"){
+        return "ReSignin";
+      }
+      return "Failed";
+    }
+  }
+
+  Future<String> updatepass(newpass) async{
+    try{
+      await _auth.currentUser!.updatePassword(newpass);
+      return "Success";
+    } on FirebaseAuthException catch(e){
+      if(e.code=="requires-recent-login"){
+        return "ReSignin";
+      }
+      return "Failed";
+    }
+  }
+
   Future<String> signout() async {
     try {
       await _auth.signOut();
