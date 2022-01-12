@@ -116,10 +116,10 @@ class _MyGrabsState extends State<MyGrabs> {
                                     children: [
                                       TextButton(
                                         onPressed: () async{
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "Processing...".text.red400.make()));
                                           await returncab(rentcabs[index]);
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "${rentcabs[index]} Successfully returned!!!".text.red400.make()));
-                                          setState(() {
-                                            
+                                          setState(() {  
                                           });
                                         }, 
                                         child: "Return".text.red800.xl.make())

@@ -23,6 +23,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   final _formkey = GlobalKey<FormState>();
+  var searchcabname = ValueNotifier<String>("");
   final _auth = FirebaseAuth.instance;
 
   String _name="";
@@ -33,6 +34,7 @@ class _HomeState extends State<Home> {
   String _pass2="";
   late int userid;
   late var userprof;
+  var unrentcabs2 = [];
 
   @override
   void initState() {
@@ -199,6 +201,14 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    getsearchcabs(scabsname){
+      for(var cabs in unrentcabs2){
+        if(cabs['modl'].contains(scabsname)){
+          unrentcabs2.add(cabs);
+        }
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple.shade400,
@@ -222,7 +232,8 @@ class _HomeState extends State<Home> {
                     fontSize: 18,
                   ),
                   onChanged: (value){
-        
+                    
+                    searchcabname.value = value;
                   },
                   decoration: InputDecoration(
                     hintText: "Search for cabs",
@@ -249,6 +260,7 @@ class _HomeState extends State<Home> {
       
                       var ordata = [];
                       var unrentcabs = [];
+                      var serentcabs = [];
                       ordata = data as List<dynamic>; // this is done because data is giving null error
                         
                       for(var cab in ordata){
@@ -256,6 +268,7 @@ class _HomeState extends State<Home> {
                           unrentcabs.add(cab);
                         }
                       }
+                      unrentcabs2 = unrentcabs;
 
                       return ListView.builder(
                         shrinkWrap: true,
@@ -285,8 +298,8 @@ class _HomeState extends State<Home> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
-                                      unrentcabs[index]['brand'].toString().text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
-                                      "\$${unrentcabs[index]['buyrate']}".text.white.xl3.make(),
+                                      unrentcabs[index]['modl'].toString().text.textStyle(TextStyle(fontFamily: GoogleFonts.glassAntiqua().fontFamily)).xl4.make(),
+                                      "\$${unrentcabs[index]['rentrate']}".text.white.xl3.make(),
                                     ],
                                   )
                                 ],
