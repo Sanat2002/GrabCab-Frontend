@@ -79,6 +79,7 @@ class _HomeState extends State<Home> {
   }
 
   updateprofileapi() async{
+    // Bug -> the value of _name2 is different of what we have make it with keyboard not everytime but sometime , also it's value at initial of this function is different than at the end of function
     print(_name2);
     print(_name3);
     print(_email2);
