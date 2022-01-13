@@ -32,6 +32,9 @@ class _HomeState extends State<Home> {
   String _name2="";
   String _email2="";
   String _pass2="";
+  String _name3="";
+  String _email3="";
+  String _pass3="";
   var change = false;
   var resign = false;
   late int userid;
@@ -76,18 +79,27 @@ class _HomeState extends State<Home> {
   }
 
   updateprofileapi() async{
+    print(_name2);
+    print(_name3);
     print(_email2);
     print(_pass2);
-    var res1 = await AuthenticationService().updateemail(_email2);
-    var res2 = await AuthenticationService().updatepass(_pass2);
-    if(res1=="ReSignin" || res2 == "ReSignin"){
-      resigndialog(context);
+    if(_name3==_name2){
+      var res1 = await AuthenticationService().updateemail(_email2);
+      var res2 = await AuthenticationService().updatepass(_pass2);
+      if(res1=="ReSignin" || res2 == "ReSignin"){
+        resigndialog(context);
+      }
+      else if (res1 == "Success" && res2 == "Success"){
+        var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
+        var response = await http.patch(url,body: {'username':_name2,'mail':_email2,'password':_pass2});
+        print(jsonDecode(response.body));
+      }
+    print(res2);
     }
-    else if (res1 == "Success" && res2 == "Success"){
-      var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
-      var response = await http.patch(url,body: {'username':_name2,'mail':_email2,'password':_pass2});
-      print(jsonDecode(response.body));
-    }
+    print(_pass2);
+    // print(_email2);
+    print(_name2);
+    print(_name3);
   }
 
   resigndialog(BuildContext context){
@@ -129,6 +141,9 @@ class _HomeState extends State<Home> {
                       initialValue: _name,
                       onChanged: (e){
                         _name2 = e;
+                        _name3 = e;
+                        print(e);
+                        print(_name2);
                       },
                       validator: (value){
                         if(value!.isEmpty){
@@ -158,6 +173,7 @@ class _HomeState extends State<Home> {
                       initialValue: _email,
                       onChanged: (e){
                         _email2 = e;
+                        _email3 = e;
                       },
                       validator: (value){
                         if(!EmailValidator.validate(value!)){
@@ -187,6 +203,7 @@ class _HomeState extends State<Home> {
                       initialValue: _pass,
                       onChanged: (e){
                         _pass2 = e;
+                        _pass3 = e;
                       },
                       validator: (value){
                         if(value!.length<6){
@@ -384,8 +401,7 @@ class _HomeState extends State<Home> {
                       tileColor: Vx.gray300,
                       title: Padding(padding: EdgeInsets.only(left: 25),child: "Profile".text.xl.make()),
                       onTap: (){
-                        // profiledialog(context);
-                        resigndialog(context);
+                        profiledialog(context);
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
