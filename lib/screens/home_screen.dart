@@ -83,9 +83,11 @@ class _HomeState extends State<Home> {
     if(res1=="ReSignin" || res2 == "ReSignin"){
       resign = true;
     }
-    var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
-    var response = await http.patch(url,body: {'username':_name2,'mail':_email2,'password':_pass2});
-    print(jsonDecode(response.body));
+    else{
+      var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
+      var response = await http.patch(url,body: {'username':_name2,'mail':_email2,'password':_pass2});
+      print(jsonDecode(response.body));
+    }
   }
 
 
@@ -284,7 +286,7 @@ class _HomeState extends State<Home> {
                       }
                       unrentcabs2 = unrentcabs;
 
-                      return unrentcabs.isEmpty? "Sorry, something went wrong 😥".text.make() : ValueListenableBuilder(
+                      return unrentcabs.isEmpty? "Sorry, something went wrong 😥".text.xl2.make().py(250).px(40) : ValueListenableBuilder(
                         valueListenable: searchcabname,
                         builder: (BuildContext context,String value,Widget?child){
                           return ListView.builder(
@@ -327,7 +329,7 @@ class _HomeState extends State<Home> {
                       });
                     }
 
-                  return CircularProgressIndicator(color: Colors.purple.shade300,).py(100).centered();
+                  return CircularProgressIndicator(color: Colors.purple.shade300,).centered();
                 })
               )
             ],
