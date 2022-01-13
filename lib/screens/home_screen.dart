@@ -81,15 +81,31 @@ class _HomeState extends State<Home> {
     var res1 = await AuthenticationService().updateemail(_email2);
     var res2 = await AuthenticationService().updatepass(_pass2);
     if(res1=="ReSignin" || res2 == "ReSignin"){
-      resign = true;
+      resigndialog(context);
     }
-    else{
+    else if (res1 == "Success" && res2 == "Success"){
       var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
       var response = await http.patch(url,body: {'username':_name2,'mail':_email2,'password':_pass2});
       print(jsonDecode(response.body));
     }
   }
 
+  resigndialog(BuildContext context){
+    Size size = MediaQuery.of(context).size;
+
+    showDialog(
+      context: context, 
+      builder: (conetext){
+        return AlertDialog(
+          content: Container(
+            color: Colors.white,
+            height:size.height*.039,
+            width: size.width*.8,
+            child: "Re-SignIn Required!!!".text.xl4.red700.make(),
+          ),
+        );
+      });
+  }
 
   profiledialog(BuildContext context){
     Size size = MediaQuery.of(context).size;
@@ -211,7 +227,7 @@ class _HomeState extends State<Home> {
                             change = false;
                           });
                         }
-                      }, 
+                      },
                       child: change? "updating...".text.make() : "Update".text.textStyle(TextStyle(fontFamily:GoogleFonts.cardo().fontFamily)).make())
                   ],
                 ),
@@ -368,7 +384,8 @@ class _HomeState extends State<Home> {
                       tileColor: Vx.gray300,
                       title: Padding(padding: EdgeInsets.only(left: 25),child: "Profile".text.xl.make()),
                       onTap: (){
-                        profiledialog(context);
+                        // profiledialog(context);
+                        resigndialog(context);
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
@@ -433,85 +450,6 @@ class _HomeState extends State<Home> {
 
             return CircularProgressIndicator(color: Colors.purple.shade300).centered();
           }),
-        // child: ListView(
-        //   children :[ 
-        //     DrawerHeader(
-        //     child: UserAccountsDrawerHeader(
-        //       decoration: BoxDecoration(
-        //         color: Vx.gray300,
-        //         borderRadius: BorderRadius.all(Radius.elliptical(20, 40))
-        //         ),
-        //       currentAccountPicture: CircleAvatar(backgroundColor: Colors.purple.shade200,),
-        //       // accountName: userprof['username'].toString().text.black.xl3.make(),
-        //       accountName: "ls".text.black.xl3.make(),
-        //       accountEmail: "sanathakur2002@gamil.com".text.black.make(),
-        //     )).h(220),
-        //     ListTile(
-        //       leading: Icon(Icons.person,color:Colors.black),
-        //       tileColor: Vx.gray300,
-        //       title: Padding(padding: EdgeInsets.only(left: 25),child: "Profile".text.xl.make()),
-        //       onTap: (){
-        //         profiledialog(context);
-        //       },
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
-        //       ),
-        //       contentPadding: EdgeInsets.only(left:20),
-        //     ).px(15),
-        //     10.heightBox,
-        //     ListTile(
-        //       leading: Icon(Icons.car_rental,color:Colors.black),
-        //       tileColor: Vx.gray300,
-        //       title: Padding(padding: EdgeInsets.only(left: 25),child: "My Grabs".text.xl.make()),
-        //       onTap: (){
-        //         Navigator.push(context, PageRouteBuilder(
-        //           transitionDuration: Duration(milliseconds: 500),
-        //           transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
-        //             animation = CurvedAnimation(parent: animation, curve: Curves.easeOutQuad);
-        //             return Align(
-        //               child: SizeTransition(
-        //                 sizeFactor: animation,
-        //                 child:child),
-        //             );
-        //           },
-        //           pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation){
-        //           return MyGrabs();
-        //         }));
-        //       },
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
-        //       ),
-        //       contentPadding: EdgeInsets.only(left:20),
-        //     ).px(15),
-        //     10.heightBox,
-        //     ListTile(
-        //       leading: Icon(Icons.door_back_door_outlined,color:Colors.black),
-        //       tileColor: Vx.gray300,
-        //       title: Padding(padding: EdgeInsets.only(left: 25),child: "Sign out".text.xl.make()),
-        //       onTap: () async{
-        //         await AuthenticationService().signout();
-        //         Navigator.pushAndRemoveUntil(context, 
-        //         PageRouteBuilder(
-        //           transitionDuration: Duration(milliseconds: 300),
-        //           transitionsBuilder: (BuildContext context,Animation<double> animation,Animation<double> secanimation,Widget child){
-        //             return SlideTransition(
-        //               position: Tween<Offset>(
-        //                 begin: Offset(-1, 0),
-        //                 end: Offset(0, 0)).animate(animation),
-        //               child:child,
-        //             );
-        //           },
-        //           pageBuilder: (BuildContext context ,Animation<double> animation,Animation<double> secanimation){
-        //             return SignIn();
-        //           }), 
-        //           (route) => false);
-        //       },
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.all(Radius.elliptical(10, 20))
-        //       ),
-        //       contentPadding: EdgeInsets.only(left:20),
-        //     ).px(15),
-        //   ]),
       ),
     );
   }
