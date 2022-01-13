@@ -33,6 +33,7 @@ class _HomeState extends State<Home> {
   String _email2="";
   String _pass2="";
   var change = false;
+  var resign = false;
   late int userid;
   late var userprof;
   var unrentcabs2 = [];
@@ -77,8 +78,11 @@ class _HomeState extends State<Home> {
   updateprofileapi() async{
     print(_email2);
     print(_pass2);
-    await AuthenticationService().updateemail(_email2);
-    await AuthenticationService().updatepass(_pass2);
+    var res1 = await AuthenticationService().updateemail(_email2);
+    var res2 = await AuthenticationService().updatepass(_pass2);
+    if(res1=="ReSignin" || res2 == "ReSignin"){
+      resign = true;
+    }
     var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
     var response = await http.patch(url,body: {'username':_name2,'mail':_email2,'password':_pass2});
     print(jsonDecode(response.body));
@@ -272,7 +276,7 @@ class _HomeState extends State<Home> {
                       var ordata = [];
                       var unrentcabs = [];
                       ordata = data as List<dynamic>; // this is done because data is giving null error
-                        
+                    
                       for(var cab in ordata){
                         if(cab['IsAvailable']==true){
                           unrentcabs.add(cab);
@@ -280,7 +284,7 @@ class _HomeState extends State<Home> {
                       }
                       unrentcabs2 = unrentcabs;
 
-                      return ValueListenableBuilder(
+                      return unrentcabs.isEmpty? "Sorry, something went wrong 😥".text.make() : ValueListenableBuilder(
                         valueListenable: searchcabname,
                         builder: (BuildContext context,String value,Widget?child){
                           return ListView.builder(
