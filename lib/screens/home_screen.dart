@@ -83,7 +83,8 @@ class _HomeState extends State<Home> {
     print(_name3);
     print(_email2);
     print(_pass2);
-    if(_name3==_name2){
+    print(_pass3);
+    if(_name3 ==_name2 && _pass3 == _pass2 && _email3 == _email2){
       var res1 = await AuthenticationService().updateemail(_email2);
       var res2 = await AuthenticationService().updatepass(_pass2);
       if(res1=="ReSignin" || res2 == "ReSignin"){
@@ -97,6 +98,7 @@ class _HomeState extends State<Home> {
     print(res2);
     }
     print(_pass2);
+    print(_pass3);
     // print(_email2);
     print(_name2);
     print(_name3);
@@ -383,6 +385,10 @@ class _HomeState extends State<Home> {
               _name2 = _name;
               _email2 = _email;
               _pass2 = _pass;
+
+              _name3 = _name2;
+              _email3 = _email2;
+              _pass3= _pass2;
 
               return ListView(
                   children :[ 
