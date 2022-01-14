@@ -27,7 +27,7 @@ class CabDetail extends StatefulWidget {
 class _CabDetailState extends State<CabDetail> {
 
   grabasrent() async{
-    var url = Uri.parse("https://grabcabbackend.herokuapp.com/Cab/${widget.cabid}/");
+    var url = Uri.parse("http://updatedgrabcab.herokuapp.com/Cab/${widget.cabid}/");
     var response = await http.patch(url,body: {'Customer':"${widget.userid}",'IsAvailable':"false"});
     var result = jsonDecode(response.body);
     print(result);

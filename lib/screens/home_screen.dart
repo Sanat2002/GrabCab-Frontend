@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
   }
 
   getuserdata() async{
-    var response = await http.get(Uri.parse("https://grabcabbackend.herokuapp.com/User/"));
+    var response = await http.get(Uri.parse("http://updatedgrabcab.herokuapp.com/User/"));
     var res = jsonDecode(response.body);
     for (var user in res) {
       if(user['mail']==_auth.currentUser!.email){
@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
   }
 
   getcablist() async{
-    var response = await http.get(Uri.parse("https://grabcabbackend.herokuapp.com/Cab/"));
+    var response = await http.get(Uri.parse("http://updatedgrabcab.herokuapp.com/Cab/"));
     if(response.statusCode==200){
       var result = jsonDecode(response.body);
       return result;
@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
         resigndialog(context);
       }
       else if (res1 == "Success" && res2 == "Success"){
-        var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/$userid/");
+        var url = Uri.parse("http://updatedgrabcab.herokuapp.com/User/$userid/");
         var response = await http.patch(url,body: {'username':_name2,'mail':_email2,'password':_pass2});
         print(jsonDecode(response.body));
       }
