@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:grabcab/screens/home_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +22,7 @@ class _MyGrabsState extends State<MyGrabs> {
   var userid;
 
   getuserdata() async{
-    var response = await http.get(Uri.parse("https://grabcabbackend.herokuapp.com/User/"));
+    var response = await http.get(Uri.parse("http://updatedgrabcab.herokuapp.com/User/"));
     var res = jsonDecode(response.body);
     for (var user in res) {
       if(user['mail']==_auth.currentUser!.email){
@@ -37,7 +36,7 @@ class _MyGrabsState extends State<MyGrabs> {
 
   returncab(modl) async{
     var cabid;
-    var response = await http.get(Uri.parse("https://grabcabbackend.herokuapp.com/Cab/"));
+    var response = await http.get(Uri.parse("http://updatedgrabcab.herokuapp.com/Cab/"));
     var res = jsonDecode(response.body);
     print(res);
     for (var cabs in res) {
@@ -47,7 +46,7 @@ class _MyGrabsState extends State<MyGrabs> {
       }
     }
     print(cabid);
-    var url = Uri.parse("https://grabcabbackend.herokuapp.com/Cab/$cabid/");
+    var url = Uri.parse("http://updatedgrabcab.herokuapp.com/Cab/$cabid/");
     var resp = await http.patch(url,body: {'Customer':"1",'IsAvailable':"true"});
     print(jsonDecode(resp.body));
 

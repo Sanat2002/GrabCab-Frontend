@@ -36,7 +36,7 @@ class _SignUpState extends State<SignUp> {
   final _passcontroller = TextEditingController();
 
   registeruser() async{
-    var url = Uri.parse("https://grabcabbackend.herokuapp.com/User/");
+    var url = Uri.parse("http://updatedgrabcab.herokuapp.com/User/");
     var response = await http.post(url,body: {'username':_namecontroller.text,'mail':_emailcontroller.text,'password':_passcontroller.text});
     print(jsonDecode(response.body));
   }
