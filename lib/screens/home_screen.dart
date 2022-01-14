@@ -267,67 +267,68 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.purple.shade400,
         title:"GrabCab".text.xl4.make().px(size.width*.15)
       ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: size.height,
-          width: size.width,
-          child: Stack(
-            children: [
-              Positioned(
-                top: 0,
-                left: 0,
-                right:0,
-                child: TextFormField(
-                  cursorColor: Colors.purple.shade300,
-                  cursorHeight: 25,
-                  style: TextStyle(
-                    color: Colors.purple.shade400,
-                    fontSize: 18,
+      body: SizedBox(
+        height: size.height,
+        width: size.width,
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              right:0,
+              child: TextFormField(
+                cursorColor: Colors.purple.shade300,
+                cursorHeight: 25,
+                style: TextStyle(
+                  color: Colors.purple.shade400,
+                  fontSize: 18,
+                ),
+                onChanged: (value){
+                  getsearchcabs(value);
+                  searchcabname.value = value;
+                },
+                decoration: InputDecoration(
+                  hintText: "Search for cabs",
+                  hintStyle: TextStyle(
+                    color: Colors.black45,
                   ),
-                  onChanged: (value){
-                    getsearchcabs(value);
-                    searchcabname.value = value;
-                  },
-                  decoration: InputDecoration(
-                    hintText: "Search for cabs",
-                    hintStyle: TextStyle(
-                      color: Colors.black45,
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.purple)
-                    )
-                  ),
-                ).px(30)
-              ),
-              Positioned(
-                top: 70,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: FutureBuilder(
-                  future: getcablist(),
-                  builder: (context, snapshot){
-                    if(snapshot.hasData){
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.purple)
+                  )
+                ),
+              ).px(30)
+            ),
+            Positioned(
+              top: 70,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: FutureBuilder(
+                future: getcablist(),
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
 
-                      var data = snapshot.data;
+                    var data = snapshot.data;
       
-                      var ordata = [];
-                      var unrentcabs = [];
-                      ordata = data as List<dynamic>; // this is done because data is giving null error
-                    
-                      for(var cab in ordata){
-                        if(cab['IsAvailable']==true){
-                          unrentcabs.add(cab);
-                        }
+                    var ordata = [];
+                    var unrentcabs = [];
+                    ordata = data as List<dynamic>; // this is done because data is giving null error
+                  
+                    for(var cab in ordata){
+                      if(cab['IsAvailable']==true){
+                        unrentcabs.add(cab);
                       }
-                      unrentcabs2 = unrentcabs;
+                    }
+                    unrentcabs2 = unrentcabs;
 
-                      return unrentcabs.isEmpty? "Sorry, something went wrong 😥".text.xl2.make().py(250).px(40) : ValueListenableBuilder(
-                        valueListenable: searchcabname,
-                        builder: (BuildContext context,String value,Widget?child){
-                          return ListView.builder(
+                    return unrentcabs.isEmpty? "Sorry, something went wrong 😥".text.xl2.make().py(250).px(40) : ValueListenableBuilder(
+                      valueListenable: searchcabname,
+                      builder: (BuildContext context,String value,Widget?child){
+                        return SingleChildScrollView(
+                          child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: value.isNotEmpty?serentcabs.length : unrentcabs.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: value.isNotEmpty? serentcabs.length : unrentcabs.length,
                           itemBuilder: (context,index){
                             return InkWell(
                               onTap: (){
@@ -361,15 +362,15 @@ class _HomeState extends State<Home> {
                                 ),
                               ).px(17),
                             ).py(5);
-                        });
-                      });
-                    }
+                                                }),
+                        );
+                    });
+                  }
 
-                  return CircularProgressIndicator(color: Colors.purple.shade300,).centered();
-                })
-              )
-            ],
-          ),
+                return CircularProgressIndicator(color: Colors.purple.shade300,).centered();
+              })
+            )
+          ],
         ),
       ),
       drawer: Drawer(
