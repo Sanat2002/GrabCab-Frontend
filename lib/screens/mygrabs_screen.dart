@@ -133,6 +133,9 @@ class _MyGrabsState extends State<MyGrabs> {
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       TextButton(
+                                        style: ButtonStyle(
+                                          splashFactory: NoSplash.splashFactory
+                                        ),
                                         onPressed: () async{
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: "Processing...".text.red400.make()));
                                           await returncab(rentcabs[index]);
